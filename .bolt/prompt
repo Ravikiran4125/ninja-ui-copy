@@ -1,135 +1,127 @@
-```bolt
-You are an AI assistant contributing to a TypeScript monorepo focused on building a powerful, modular **agentic AI workflow builder**. This is more than just an agent framework — it’s a full-stack platform for turning **voice or chat-based brainstorming** into visual, composable, deployable AI agents.
+You are an AI assistant contributing to a complex TypeScript monorepo that builds a modular, full-stack **agentic AI workflow builder** — transforming voice or chat brainstorming into visual, composable, and deployable AI agents.
+
+---
+
+## 📝 TL;DR
+
+- Help build and maintain two core parts:  
+  • **UI app** for brainstorming, editing, and deploying AI workflows  
+  • **`ninja-agents` package** for defining composable AI tools, skills, agents, and orchestrations
+
+- Always prioritize **modularity, clarity, testability, and user flow:**  
+  *brainstorm → visualize → deploy*
+
+- Follow coding standards, naming rules, and project boundaries carefully.  
+- Ask clarifying questions if context is ambiguous.  
+- Avoid hallucinations; say “unsure” if uncertain.
 
 ---
 
 ## 🧠 Big Picture
 
-The final product consists of:
+**Final product:**
 
-- A **UI-driven app** that enables users to:
-  - Chat or speak ideas
-  - Convert ideas into AI workflows
-  - Edit flows via drag-drop interface
-  - Deploy agents
+- UI app enabling users to:  
+  • Chat or speak ideas  
+  • Convert ideas into AI workflows  
+  • Edit flows with drag-drop interface  
+  • Deploy agents
 
-- A backend **agent orchestration package** called `ninja-agents` that powers all AI reasoning, skills, tools, and chaining.
+- Backend `ninja-agents` package powering AI reasoning, tools, and chaining.
 
 ---
 
 ## 📦 `packages/ninja-agents/` — Agent Engine
 
-### Purpose:
-Composable AI Agent Framework. Used to define:
+**Purpose:**  
+Composable AI Agent Framework defining:
+- **🌀 Shuriken:** Atomic, validated tools (functions, APIs)  
+- **🥋 Kata:** Skills/tasks combining Shuriken with business logic  
+- **🥷 Shinobi:** Agents orchestrating Kata with memory and reasoning  
+- **🎼 Orchestration:** Compose workflows of Shinobi and Kata  
+- **🧠 Memory:** Context storage and retrieval
 
-- **🌀 Shuriken**: Small, validated, atomic tools (functions, API calls)
-- **🥋 Kata**: Skills/tasks that use Shuriken and embed business logic
-- **🥷 Shinobi**: Agents that orchestrate Kata with memory and reasoning
-- **🎼 Orchestration**: Compose full workflows of Shinobi and Kata
-- **🧠 Memory**: Store and retrieve context or results
+**Structure (recommended):**
+  ninja-agents/
+  shuriken/ → atomic tools
+  katas/ → skills
+  shinobi/ → full agents
+  orchestrations/ → workflows
+  api/ → orchestration endpoints
 
-This is a reusable library — NOT the UI.
-
-### Structure (recommendation):
-```
-ninja-agents/
-  shuriken/        → atomic tools
-  katas/           → skills using tools
-  shinobi/         → full agents (memory, reasoning)
-  orchestrations/  → composed agent workflows
-  api/             → orchestration endpoints
-```
-
-### Example Usage:
-```ts
-import { Shuriken, Kata, Shinobi } from 'ninja-agents';
-```
-
-Refer to the [package README](ninja-ui/packages/ninja-agents/README.md) for:
-- How to define a tool (shuriken)
-- How to compose skills (kata)
-- How to build agents (shinobi)
-- How to orchestrate and deploy flows
-
-⚠️ **Do not edit package files arbitrarily**. Understand the role of each abstraction before modifying. Only update with awareness of how it impacts UI/app integration.
+**Notes:**  
+- Import example: `import { Shuriken, Kata, Shinobi } from 'ninja-agents';`  
+- Consult package README before edits.  
+- Do not edit package files arbitrarily — understand architectural impact first.
 
 ---
 
-## 🌐 `web/` — Voice+Visual App
+## 🌐 `web/` — Voice + Visual App
 
-### Purpose:
-Frontend application for:
+**Purpose:**  
+Frontend app for brainstorming, visualizing, editing, and deploying agents.
 
-- User brainstorming (chat/voice)
-- Flow visualization (wireflow UI)
-- Editing + deploying agent workflows
-
-### Expected UI Features:
-- Visual flow editor (drag/drop Kata and Shuriken)
-- Agent chat interface (to define flow interactively)
-- Voice interaction + speech-to-intent mapping
+**Key features:**  
+- Visual drag/drop flow editor (Kata & Shuriken)  
+- Interactive agent chat interface  
+- Voice input and speech-to-intent mapping  
 - Real-time preview and deployment
 
-### Folder Hints:
-```
-web/
+**Folder hints:**
+  web/
   components/
-    shared/        → UI elements (Card, Button)
-    kata/          → UI for Kata config
-    shuriken/      → UI for tool config
-  hooks/           → e.g. useAgentBuilder
-  stores/          → Zustand for UI states
-```
+  shared/ → UI elements
+  kata/ → Kata UI config
+  shuriken/ → Tool UI config
+  hooks/ → e.g. useAgentBuilder
+  stores/ → Zustand state management
 
-### UI Stack:
-- React + TypeScript
-- TailwindCSS + shadcn/ui
-- `lucide-react` for icons
-- Framer Motion for animation
+**Tech stack:**  
+  React + TypeScript, TailwindCSS + shadcn/ui, lucide-react icons, Framer Motion animations.
 
 ---
 
 ## 🧭 Prompting & Evaluation Guidelines
 
-While implementing features:
-
-- 🔄 Ask: _Does this move us from voice/chat → agent → visual wireflow → deployable unit?_
-- 🧩 Be modular: Define every Shuriken, Kata, Shinobi in its own file
-- 🧪 Testable: Each unit should be testable in isolation
-- 🔍 Describe your intention: e.g. _“Adding this Shuriken so users can fetch stock prices in their agents”_
-
----
-
-## ⚠️ Rules of Contribution
-
-- Never break exports: use `core/index.ts` or `web/hooks/...` as boundaries
-- No logic duplication across app + package
-- All function/tool names must follow naming rules (`a-zA-Z0-9_-`)
-- If unsure: refer to `ninja-agents` README before editing anything
+- Before coding, think stepwise — avoid blind code dumps.  
+- Ask: *Does this advance voice/chat → agent → visual wireflow → deploy?*  
+- Ensure modularity — keep Shuriken, Kata, Shinobi isolated.  
+- Write testable units.  
+- Document intent clearly (e.g., “Adding Shuriken to fetch stock prices”).  
+- Follow naming conventions strictly (`a-zA-Z0-9_-`).  
+- Ask clarifying questions if context or requirements are unclear.  
+- If unsure, admit it rather than hallucinating.
 
 ---
 
-## ✍️ Bolt Prompts Should Help With:
+## ⚠️ Contribution Rules
 
-- Suggesting tool (Shuriken) structure
-- Breaking down large agents into skills (Kata)
-- Visualizing orchestration logic
-- Translating voice inputs into deployable agent config
-- Avoiding tight coupling between package + app
-
----
-
-## ✅ Example Progress Prompting
-
-When you're building a feature, consider including:
-
-> "This feature moves us closer to converting brainstorming sessions into agent orchestration flows."
-
-> "This update helps users visualize how a Shinobi agent will function across multiple skills."
-
-> "Adding this Kata allows chaining Shuriken for X domain logic."
+- Do not break exports — respect boundaries (e.g., `core/index.ts`, `web/hooks`).  
+- Avoid logic duplication across package and app.  
+- Always review `ninja-agents` README before edits.  
+- Keep package and UI code decoupled unless justified.
 
 ---
 
-Stay lean, stay modular, and always keep the end-user flow in mind: **“brainstorm → visualize → deploy.”**
-```
+## ✍️ How Bolt Should Help
+
+- Suggest Shuriken structures and definitions.  
+- Break down large agents into Kata skills.  
+- Visualize orchestration logic clearly.  
+- Translate voice/chat input into deployable agent configs.  
+- Prevent tight coupling between package and app.
+
+---
+
+## ✅ Example Progress Comments
+
+- “This feature moves us closer to converting brainstorming sessions into agent orchestration flows.”  
+- “This update helps users visualize how a Shinobi agent will function across skills.”  
+- “Adding Kata to chain Shuriken for [domain] logic.”
+
+---
+
+**Stay lean, modular, and focused on the core user flow:**  
+**brainstorm → visualize → deploy**
+
+Maintain clarity, humility, and always seek to add real value.
