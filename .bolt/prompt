@@ -1,43 +1,135 @@
-You are an AI assistant working on a TypeScript project that integrates with the OpenAI API. Your primary goal is to help the user develop and refine this project.
+```bolt
+You are an AI assistant contributing to a TypeScript monorepo focused on building a powerful, modular **agentic AI workflow builder**. This is more than just an agent framework — it’s a full-stack platform for turning **voice or chat-based brainstorming** into visual, composable, deployable AI agents.
 
-Here are the key rules and preferences to adhere to:
+---
 
-1.  **Project Philosophy & AI Concepts**:
-    *   Maintain a clear separation of concerns within the package.
-    *   **Kata**: Represents an AI agent or a defined AI workflow, primarily focused on orchestrating multi-turn conversations and executing AI capabilities.
-    *   **Shuriken**: Represents a specific AI function or capability that the AI can invoke.
-    *   Other OpenAI features (like content streaming or structured output) are distinct API functionalities that can be demonstrated and used by higher-level services (e.g., `OpenAIService`), which may *utilize* a `Kata` for conversational aspects but handle the specific API parameters themselves.
+## 🧠 Big Picture
 
-2.  **Naming Conventions**:
-    *   Strictly use "Kata" for AI agent/workflow and "Shuriken" for AI function/capability.
-    *   Avoid the term "tool" unless directly referring to the OpenAI API's `tool_calls` property, but even then, prefer "shuriken calls" for consistency.
-    *   Use "forge" when referring to the generation of an AI function definition.
-    *   Use "execute" when referring to the running of an AI function or workflow.
+The final product consists of:
 
-3.  **Shuriken Class**:
-    *   The `Shuriken` class is designed for creating OpenAI function definitions.
-    *   Its constructor must take `title`, `description`, a Zod schema, *and an implementation function*.
-    *   It encapsulates both the function definition (`forge`) and its execution (`execute`).
+- A **UI-driven app** that enables users to:
+  - Chat or speak ideas
+  - Convert ideas into AI workflows
+  - Edit flows via drag-drop interface
+  - Deploy agents
 
-4.  **Kata Class**:
-    *   The `Kata` class can be initialized with an optional array of `Shuriken` instances.
-    *   Its primary role is to manage the conversation flow and execute `Shuriken` instances based on the AI's decisions.
-    *   It should *not* directly handle streaming or `response_format` parameters, as these are distinct OpenAI API features that can be applied to any chat completion, not solely to shuriken orchestration.
+- A backend **agent orchestration package** called `ninja-agents` that powers all AI reasoning, skills, tools, and chaining.
 
-5.  **OpenAIService Integration**:
-    *   The `OpenAIService` acts as the main entry point for demonstrating various OpenAI API features.
-    *   It must leverage `Kata` and `Shuriken` where appropriate for their intended purposes, ensuring that all examples align with the established terminology and design.
+---
 
-6.  **Core Module Structure**:
-    *   The `core` folder must contain an `index.ts` file.
-    *   All implementations within the `core` module should only be accessed and exported via this `index.ts` file, rather than directly from their individual files.
+## 📦 `packages/ninja-agents/` — Agent Engine
 
-7.  **Type Export**:
-    *   Export the type `OpenAI.Chat.Completions.ChatCompletionTool[]` (and related types like `OpenAITool`, `OpenAIToolFunction`, `OpenAIToolParameters`) from `src/core/index.ts` to ensure proper type visibility and usage throughout the project.
+### Purpose:
+Composable AI Agent Framework. Used to define:
 
-8.  **UI Technologies (if applicable)**:
-    *   Prefer JSX syntax, Tailwind CSS classes, React hooks, and Lucide React for icons.
-    *   Do not install other UI theme or icon packages unless explicitly necessary or requested by the user.
-    *   Use icons from `lucide-react` for logos and other UI elements.
+- **🌀 Shuriken**: Small, validated, atomic tools (functions, API calls)
+- **🥋 Kata**: Skills/tasks that use Shuriken and embed business logic
+- **🥷 Shinobi**: Agents that orchestrate Kata with memory and reasoning
+- **🎼 Orchestration**: Compose full workflows of Shinobi and Kata
+- **🧠 Memory**: Store and retrieve context or results
 
-When responding, always provide clear, actionable guidance. If an implementation is requested, outline a plan with numbered steps, specifying file modifications in plain English without providing code snippets.
+This is a reusable library — NOT the UI.
+
+### Structure (recommendation):
+```
+ninja-agents/
+  shuriken/        → atomic tools
+  katas/           → skills using tools
+  shinobi/         → full agents (memory, reasoning)
+  orchestrations/  → composed agent workflows
+  api/             → orchestration endpoints
+```
+
+### Example Usage:
+```ts
+import { Shuriken, Kata, Shinobi } from 'ninja-agents';
+```
+
+Refer to the [package README](ninja-ui/packages/ninja-agents/README.md) for:
+- How to define a tool (shuriken)
+- How to compose skills (kata)
+- How to build agents (shinobi)
+- How to orchestrate and deploy flows
+
+⚠️ **Do not edit package files arbitrarily**. Understand the role of each abstraction before modifying. Only update with awareness of how it impacts UI/app integration.
+
+---
+
+## 🌐 `web/` — Voice+Visual App
+
+### Purpose:
+Frontend application for:
+
+- User brainstorming (chat/voice)
+- Flow visualization (wireflow UI)
+- Editing + deploying agent workflows
+
+### Expected UI Features:
+- Visual flow editor (drag/drop Kata and Shuriken)
+- Agent chat interface (to define flow interactively)
+- Voice interaction + speech-to-intent mapping
+- Real-time preview and deployment
+
+### Folder Hints:
+```
+web/
+  components/
+    shared/        → UI elements (Card, Button)
+    kata/          → UI for Kata config
+    shuriken/      → UI for tool config
+  hooks/           → e.g. useAgentBuilder
+  stores/          → Zustand for UI states
+```
+
+### UI Stack:
+- React + TypeScript
+- TailwindCSS + shadcn/ui
+- `lucide-react` for icons
+- Framer Motion for animation
+
+---
+
+## 🧭 Prompting & Evaluation Guidelines
+
+While implementing features:
+
+- 🔄 Ask: _Does this move us from voice/chat → agent → visual wireflow → deployable unit?_
+- 🧩 Be modular: Define every Shuriken, Kata, Shinobi in its own file
+- 🧪 Testable: Each unit should be testable in isolation
+- 🔍 Describe your intention: e.g. _“Adding this Shuriken so users can fetch stock prices in their agents”_
+
+---
+
+## ⚠️ Rules of Contribution
+
+- Never break exports: use `core/index.ts` or `web/hooks/...` as boundaries
+- No logic duplication across app + package
+- All function/tool names must follow naming rules (`a-zA-Z0-9_-`)
+- If unsure: refer to `ninja-agents` README before editing anything
+
+---
+
+## ✍️ Bolt Prompts Should Help With:
+
+- Suggesting tool (Shuriken) structure
+- Breaking down large agents into skills (Kata)
+- Visualizing orchestration logic
+- Translating voice inputs into deployable agent config
+- Avoiding tight coupling between package + app
+
+---
+
+## ✅ Example Progress Prompting
+
+When you're building a feature, consider including:
+
+> "This feature moves us closer to converting brainstorming sessions into agent orchestration flows."
+
+> "This update helps users visualize how a Shinobi agent will function across multiple skills."
+
+> "Adding this Kata allows chaining Shuriken for X domain logic."
+
+---
+
+Stay lean, stay modular, and always keep the end-user flow in mind: **“brainstorm → visualize → deploy.”**
+```
