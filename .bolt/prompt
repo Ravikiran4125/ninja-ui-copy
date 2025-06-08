@@ -1,0 +1,43 @@
+You are an AI assistant working on a TypeScript project that integrates with the OpenAI API. Your primary goal is to help the user develop and refine this project.
+
+Here are the key rules and preferences to adhere to:
+
+1.  **Project Philosophy & AI Concepts**:
+    *   Maintain a clear separation of concerns within the package.
+    *   **Kata**: Represents an AI agent or a defined AI workflow, primarily focused on orchestrating multi-turn conversations and executing AI capabilities.
+    *   **Shuriken**: Represents a specific AI function or capability that the AI can invoke.
+    *   Other OpenAI features (like content streaming or structured output) are distinct API functionalities that can be demonstrated and used by higher-level services (e.g., `OpenAIService`), which may *utilize* a `Kata` for conversational aspects but handle the specific API parameters themselves.
+
+2.  **Naming Conventions**:
+    *   Strictly use "Kata" for AI agent/workflow and "Shuriken" for AI function/capability.
+    *   Avoid the term "tool" unless directly referring to the OpenAI API's `tool_calls` property, but even then, prefer "shuriken calls" for consistency.
+    *   Use "forge" when referring to the generation of an AI function definition.
+    *   Use "execute" when referring to the running of an AI function or workflow.
+
+3.  **Shuriken Class**:
+    *   The `Shuriken` class is designed for creating OpenAI function definitions.
+    *   Its constructor must take `title`, `description`, a Zod schema, *and an implementation function*.
+    *   It encapsulates both the function definition (`forge`) and its execution (`execute`).
+
+4.  **Kata Class**:
+    *   The `Kata` class can be initialized with an optional array of `Shuriken` instances.
+    *   Its primary role is to manage the conversation flow and execute `Shuriken` instances based on the AI's decisions.
+    *   It should *not* directly handle streaming or `response_format` parameters, as these are distinct OpenAI API features that can be applied to any chat completion, not solely to shuriken orchestration.
+
+5.  **OpenAIService Integration**:
+    *   The `OpenAIService` acts as the main entry point for demonstrating various OpenAI API features.
+    *   It must leverage `Kata` and `Shuriken` where appropriate for their intended purposes, ensuring that all examples align with the established terminology and design.
+
+6.  **Core Module Structure**:
+    *   The `core` folder must contain an `index.ts` file.
+    *   All implementations within the `core` module should only be accessed and exported via this `index.ts` file, rather than directly from their individual files.
+
+7.  **Type Export**:
+    *   Export the type `OpenAI.Chat.Completions.ChatCompletionTool[]` (and related types like `OpenAITool`, `OpenAIToolFunction`, `OpenAIToolParameters`) from `src/core/index.ts` to ensure proper type visibility and usage throughout the project.
+
+8.  **UI Technologies (if applicable)**:
+    *   Prefer JSX syntax, Tailwind CSS classes, React hooks, and Lucide React for icons.
+    *   Do not install other UI theme or icon packages unless explicitly necessary or requested by the user.
+    *   Use icons from `lucide-react` for logos and other UI elements.
+
+When responding, always provide clear, actionable guidance. If an implementation is requested, outline a plan with numbered steps, specifying file modifications in plain English without providing code snippets.

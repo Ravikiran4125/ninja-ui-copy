@@ -1,0 +1,53 @@
+{
+  "name": "openai-teaching-package",
+  "version": "1.0.0",
+  "description": "A comprehensive TypeScript package for AI crew orchestration with OpenAI API",
+  "main": "dist/demo.js",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/demo.ts",
+    "start": "npm run build && node dist/demo.js",
+    "test": "tsx src/testSuite.ts",
+    "orchestration": "tsx src/orchestrationDemo.ts",
+    "test:watch": "tsx watch src/testSuite.ts",
+    "docs:dev": "docusaurus start",
+    "docs:build": "docusaurus build",
+    "docs:serve": "docusaurus serve",
+    "docs:clear": "docusaurus clear",
+    "docs:api": "typedoc --out docs/static/api src/core/index.ts --plugin typedoc-plugin-markdown --theme markdown"
+  },
+  "keywords": [
+    "openai",
+    "typescript",
+    "ai-crew",
+    "orchestration",
+    "shinobi",
+    "kata",
+    "shuriken",
+    "teaching",
+    "examples"
+  ],
+  "author": "OpenAI Teaching Package",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.0",
+    "chalk": "^5.4.1",
+    "dotenv": "^16.3.1",
+    "openai": "^4.20.1",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/node": "^20.8.0",
+    "tsx": "^4.1.2",
+    "typescript": "^5.2.2",
+    "@docusaurus/core": "^3.0.0",
+    "@docusaurus/preset-classic": "^3.0.0",
+    "@docusaurus/module-type-aliases": "^3.0.0",
+    "@docusaurus/tsconfig": "^3.0.0",
+    "@docusaurus/types": "^3.0.0",
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-markdown": "^3.17.0",
+    "prism-react-renderer": "^2.3.0"
+  }
+}
