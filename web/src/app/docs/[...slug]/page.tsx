@@ -40,7 +40,13 @@ async function getDocContent(slugArr: string[]) {
   return null;
 }
 
-export default async function DocPage({ params }: { params: { slug: string[] } }) {
+interface DocPageProps {
+  params: {
+    slug: string[];
+  };
+}
+
+export default async function DocPage({ params }: DocPageProps) {
   const doc = await getDocContent(params.slug);
   return (
     <DocsLayout>
@@ -48,4 +54,3 @@ export default async function DocPage({ params }: { params: { slug: string[] } }
     </DocsLayout>
   );
 }
-
