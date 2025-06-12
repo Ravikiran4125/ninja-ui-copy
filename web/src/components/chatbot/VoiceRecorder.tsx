@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { clsx } from 'clsx';
-import { Mic, Pause, Play, Square, Volume2 } from 'lucide-react';
+import { Pause, Play, Square, Volume2 } from 'lucide-react';
 import type { VoiceRecorderState } from './types';
 
 interface VoiceRecorderProps {
