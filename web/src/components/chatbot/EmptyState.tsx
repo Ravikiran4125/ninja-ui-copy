@@ -46,8 +46,7 @@ export function EmptyState({ onSendMessage }: EmptyStateProps) {
       </h2>
       
       <p className="text-gray-600 dark:text-gray-400 mb-8 max-w-md">
-        Start a conversation with our AI research director. Ask questions, get analysis, 
-        or explore any topic you're curious about.
+        Start a conversation with our AI research director. Ask questions, get analysis, or explore any topic you're curious about.
       </p>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-2xl w-full">
