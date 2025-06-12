@@ -19,8 +19,14 @@ export default function ChatPage() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
       });
-      const data = await res.json();
-      console.log(data, "data")
+      const status = res.status;
+        console.log(status, "HTTP Status");
+      
+        const text = await res.text();
+        console.log(text, "Raw response");
+      
+        const data = JSON.parse(text);
+        console.log(data, "data");
       if (res.ok) {
         setMessages([...newMessages, { role: "assistant", content: data.result?.result?.finalAnswer || JSON.stringify(data.result) }]);
       } else {
