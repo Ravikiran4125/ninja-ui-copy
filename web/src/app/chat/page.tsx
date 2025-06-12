@@ -30,7 +30,7 @@ export default function ChatPage() {
       const data = JSON.parse(text);
       console.log(data, "data");
       if (res.ok) {
-        setMessages([...newMessages, { role: "assistant", content: data.result?.result?.finalAnswer || JSON.stringify(data.result) }]);
+        setMessages([...newMessages, { role: "assistant", content: data.response || JSON.stringify(data.result) }]);
       } else {
         setError(data.error || "Unknown error");
       }
