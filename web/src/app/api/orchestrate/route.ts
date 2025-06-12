@@ -83,6 +83,7 @@ export async function POST(req: NextRequest) {
     apiLogger.info('Successfully orchestrated Shinobi and sending response.', { finalAnswerLength: finalAnswer.length, shinobiId: shinobi.getId() });
 
     return NextResponse.json({
+      execution: executionResult,
       response: finalAnswer,
       shinobiId: shinobi.getId(),
       executionTimeMs,
