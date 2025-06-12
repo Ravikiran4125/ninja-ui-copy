@@ -1,4 +1,4 @@
-// File: src/app/docs/[...slug]/page.tsx
+// src/app/docs/[...slug]/page.tsx
 
 import fs from 'fs';
 import path from 'path';
@@ -18,27 +18,25 @@ const DOCS_MAP: Record<string, string> = {
   'packages/orchestration': 'src/orchestrations/index.ts',
 };
 
-// ✅ Tells Next.js to statically generate all routes
 export async function generateStaticParams() {
   return Object.keys(DOCS_MAP).map(slug => ({
     slug: slug.split('/'),
   }));
 }
 
-// ✅ Helper to read file content
 async function getDocContent(slugArr: string[]) {
   const slug = slugArr.join('/');
   const filePath = DOCS_MAP[slug];
   if (!filePath) return null;
-
   const absPath = path.resolve(process.cwd(), filePath);
   if (!fs.existsSync(absPath)) return null;
-
   const raw = fs.readFileSync(absPath, 'utf8');
+
   if (filePath.endsWith('.md')) {
     const { content } = matter(raw);
     return { content };
   }
+
   if (filePath.endsWith('.ts')) {
     return { content: '```ts\n' + raw + '\n```' };
   }
@@ -46,18 +44,13 @@ async function getDocContent(slugArr: string[]) {
   return null;
 }
 
-// ✅ Page Component Type
-type PageProps = {
-  params: {
-    slug?: string[]; // optional for safety
-  };
-};
-
-// ✅ Actual page component
-export default async function DocPage({ params }: PageProps) {
-  const slugParts = params.slug ?? [];
-  const doc = await getDocContent(slugParts);
-
+// ✅ Do not import or reuse "PageProps" from anywhere else
+export default async function DocPage({
+  params,
+}: {
+  params: { slug: string[] };
+}) {
+  const doc = await getDocContent(params.slug);
   return (
     <DocsLayout>
       {doc ? (
