@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { clsx } from 'clsx';
-import { ChevronDown, ChevronRight, Code, Type, Function, Hash, Eye, EyeOff } from 'lucide-react';
+import { ChevronDown, ChevronRight, Code, Type, FunctionSquare as Function, Hash, Eye, EyeOff } from 'lucide-react';
 import { MarkdownRenderer } from '../ui/markdown-renderer';
 
 interface TypeDefinition {
