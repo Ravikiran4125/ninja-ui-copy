@@ -9,12 +9,10 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
     "resolveJsonModule": true,
     "allowImportingTsExtensions": false,
     "noEmit": false
   },
-  "include": ["src/**/*"],
+  "include": ["packages/*/src/**/*", "packages/*/tests/**/*", "web/**/*"],
   "exclude": ["node_modules", "dist"]
 }

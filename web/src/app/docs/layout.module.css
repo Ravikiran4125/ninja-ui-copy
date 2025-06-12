@@ -1,0 +1,22 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  background: #f5f6fa;
+}
+.main {
+  flex: 1;
+  margin-left: 230px;
+  padding: 48px 32px 32px 32px;
+  background: #fff;
+  min-height: 100vh;
+  box-shadow: 0 0 8px 0 rgba(0,0,0,0.03);
+}
+@media (max-width: 900px) {
+  .main {
+    margin-left: 0;
+    padding: 24px 8px;
+  }
+  .container {
+    flex-direction: column;
+  }
+}
