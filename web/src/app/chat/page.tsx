@@ -20,6 +20,7 @@ export default function ChatPage() {
         body: JSON.stringify({ messages: newMessages }),
       });
       const data = await res.json();
+      console.log(data, "data")
       if (res.ok) {
         setMessages([...newMessages, { role: "assistant", content: data.result?.result?.finalAnswer || JSON.stringify(data.result) }]);
       } else {
