@@ -5,7 +5,6 @@ import { clsx } from 'clsx';
 import { 
   MessageSquare, 
   X, 
-  Minus, 
   Settings, 
   Download, 
   Trash2, 
@@ -13,7 +12,6 @@ import {
   ChevronUp,
   ChevronDown
 } from 'lucide-react';
-import { ChatMessage } from './ChatMessage';
 import { ChatInput } from './ChatInput';
 import { ChatSettings } from './ChatSettings';
 import { ChatSearch } from './ChatSearch';
@@ -66,9 +64,9 @@ export function ChatbotContainer({
   const containerRef = useRef<HTMLDivElement>(null);
   
   const settings = useMemo(() => ({ ...defaultSettings, ...userSettings }), [userSettings]);
-  const { theme, toggleTheme } = useTheme(settings.theme);
+  const { theme } = useTheme(settings.theme);
   const { searchQuery, filteredMessages, setSearchQuery } = useMessageSearch(messages);
-  const voiceRecorder = useVoiceRecorder();
+  const voiceRecorder = useVoiceRecorder(onVoiceMessage);
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
@@ -249,7 +247,6 @@ export function ChatbotContainer({
               query={searchQuery}
               onQueryChange={setSearchQuery}
               resultCount={filteredMessages.length}
-              totalCount={messages.length}
             />
           )}
 

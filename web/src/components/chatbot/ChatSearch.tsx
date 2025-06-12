@@ -8,15 +8,13 @@ interface ChatSearchProps {
   query: string;
   onQueryChange: (query: string) => void;
   resultCount: number;
-  totalCount: number;
   onClose?: () => void;
 }
 
 export function ChatSearch({ 
   query, 
   onQueryChange, 
-  resultCount, 
-  totalCount,
+  resultCount,
   onClose 
 }: ChatSearchProps) {
   const [currentIndex, setCurrentIndex] = useState(0);

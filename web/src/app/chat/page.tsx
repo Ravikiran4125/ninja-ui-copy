@@ -46,8 +46,8 @@ export default function ChatPage() {
       } else {
         setError(data.error || "An unexpected error occurred");
       }
-    } catch (err: any) {
-      setError(err.message || "Network error occurred");
+    } catch (err: unknown) {
+      setError(err instanceof Error ? err.message : "Network error occurred");
     } finally {
       setLoading(false);
     }

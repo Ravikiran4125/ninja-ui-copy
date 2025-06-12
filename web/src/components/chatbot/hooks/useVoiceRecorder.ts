@@ -3,7 +3,7 @@
 import { useState, useRef, useCallback } from 'react';
 import type { VoiceRecorderState } from '../types';
 
-export function useVoiceRecorder() {
+export function useVoiceRecorder(onAudioReady?: (audioBlob: Blob) => void) {
   const [state, setState] = useState<VoiceRecorderState>({
     isRecording: false,
     isPaused: false,
@@ -63,7 +63,9 @@ export function useVoiceRecorder() {
 
       mediaRecorder.onstop = () => {
         const audioBlob = new Blob(audioChunksRef.current, { type: 'audio/wav' });
-        // You can emit this blob to parent component
+        if (onAudioReady) {
+          onAudioReady(audioBlob);
+        }
         console.log('Recording stopped, blob size:', audioBlob.size);
       };
 
@@ -81,7 +83,7 @@ export function useVoiceRecorder() {
     } catch (error) {
       console.error('Error starting recording:', error);
     }
-  }, [state.isRecording, state.isPaused]);
+  }, [state.isRecording, state.isPaused, onAudioReady]);
 
   const stopRecording = useCallback(() => {
     if (mediaRecorderRef.current && state.isRecording) {
