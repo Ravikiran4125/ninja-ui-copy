@@ -1,4 +1,4 @@
-import { KataConfig } from "../../../src/core/kata";
+import { KataConfig } from "ninja-agents";
 
 export const researchAnalystKata: KataConfig = {
   model: 'gpt-4o-mini',
