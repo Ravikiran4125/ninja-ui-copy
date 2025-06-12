@@ -67,6 +67,7 @@ export async function POST(req: NextRequest) {
     const executionTimeMs = endTime - startTime;
     apiLogger.info(`Shinobi execution completed in ${executionTimeMs}ms.`);
 
+    console.log(executionResult, "executionResult")
     // Extract and return the final answer
     // The 'ExecutionResult' type does not have an 'error' field; errors are thrown.
     const finalAnswer = executionResult.result?.finalAnswer;
