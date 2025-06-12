@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { clsx } from 'clsx';
-import { X, Moon, Sun, Monitor, Volume2, VolumeX, Upload, UploadX, Heart, HeartOff, Search, SearchX, Eye, EyeOff, Clock, ClockOff } from 'lucide-react';
+import { X, Moon, Sun, Monitor, Volume2, VolumeX, Upload, Upload as UploadX, Heart, HeartOff, Search, SearchX, Eye, EyeOff, Clock, AlarmClockOff as ClockOff } from 'lucide-react';
 import type { ChatbotSettings } from './types';
 
 interface ChatSettingsProps {
