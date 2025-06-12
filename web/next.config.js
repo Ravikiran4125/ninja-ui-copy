@@ -1,5 +1,5 @@
 const nextConfig = {
-typescript: {
+  typescript: {
     ignoreBuildErrors: true,
   },
   eslint: {
