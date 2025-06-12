@@ -40,6 +40,7 @@ export function ChatInput({
   enableFileUpload = true,
   voiceRecorder
 }: ChatInputProps) {
+  console.log(onVoiceMessage)
   const [input, setInput] = useState('');
   const [attachments, setAttachments] = useState<FileAttachment[]>([]);
   const [showEmojiPicker, setShowEmojiPicker] = useState(false);
