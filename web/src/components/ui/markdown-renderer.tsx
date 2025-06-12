@@ -71,7 +71,7 @@ export function MarkdownRenderer({ content, className }: MarkdownRendererProps) 
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code: ({ node, inline, className, children, ...props }) => (
+          code: ({ inline, className, children, ...props }) => (
             <CodeBlock
               inline={inline}
               className={className}
