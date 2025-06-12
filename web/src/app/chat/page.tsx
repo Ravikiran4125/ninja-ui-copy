@@ -8,8 +8,10 @@ export default function ChatPage() {
   const [error, setError] = useState<string | null>(null);
 
   async function sendMessage(e: React.FormEvent) {
+    console.log("event starts")
     e.preventDefault();
     setError(null);
+    console.log("event continues")
     const newMessages = [...messages, { role: "user", content: input }];
     setMessages(newMessages);
     setLoading(true);
@@ -20,13 +22,13 @@ export default function ChatPage() {
         body: JSON.stringify({ messages: newMessages }),
       });
       const status = res.status;
-        console.log(status, "HTTP Status");
-      
-        const text = await res.text();
-        console.log(text, "Raw response");
-      
-        const data = JSON.parse(text);
-        console.log(data, "data");
+      console.log(status, "HTTP Status");
+    
+      const text = await res.text();
+      console.log(text, "Raw response");
+    
+      const data = JSON.parse(text);
+      console.log(data, "data");
       if (res.ok) {
         setMessages([...newMessages, { role: "assistant", content: data.result?.result?.finalAnswer || JSON.stringify(data.result) }]);
       } else {
