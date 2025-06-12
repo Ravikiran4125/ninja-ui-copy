@@ -212,7 +212,7 @@ export function SearchableContent({
   );
 }
 
-// Helper function to create searchable content from documentation
+// Helper function to create searchable content from documentation - now server-compatible
 export function createSearchableContent(docs: any[]): SearchResult[] {
   const results: SearchResult[] = [];
 

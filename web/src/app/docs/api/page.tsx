@@ -264,8 +264,8 @@ const tableColumns = [
   { key: 'required', label: 'Required', sortable: true }
 ];
 
-export default function APIDocsPage() {
-  // Read the API documentation
+// Server-side function to read API documentation
+function getAPIDocumentation() {
   const apiDocsPath = path.resolve(process.cwd(), '../packages/ninja-agents/API.md');
   let apiContent = '';
   
@@ -306,7 +306,14 @@ const result = await agent.execute(userQuery);
     apiContent = '# API Documentation\n\nError loading documentation. Please try again later.';
   }
 
-  // Create legacy docs from markdown files
+  return apiContent;
+}
+
+export default function APIDocsPage() {
+  // Read the API documentation on the server
+  const apiContent = getAPIDocumentation();
+
+  // Create legacy docs from markdown files - now done on server
   const legacyDocs = createLegacyDocsFromMarkdown([
     {
       filename: 'API.md',
@@ -319,7 +326,7 @@ const result = await agent.execute(userQuery);
     }
   ]);
 
-  // Create searchable content
+  // Create searchable content - now done on server
   const searchableContent = createSearchableContent([
     {
       id: 'shuriken',
