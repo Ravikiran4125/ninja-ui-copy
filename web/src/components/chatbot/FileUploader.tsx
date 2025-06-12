@@ -73,7 +73,11 @@ export const FileUploader = forwardRef<HTMLInputElement, FileUploaderProps>(
         />
         <button
           type="button"
-          onClick={() => (ref as React.RefObject<HTMLInputElement>)?.current?.click() || inputRef.current?.click()}
+          onClick={() => {
+            const target = (ref as React.RefObject<HTMLInputElement>)?.current || inputRef.current;
+            target?.click();
+          }}
+
           className={clsx(
             'p-2 rounded-lg transition-colors',
             'hover:bg-gray-100 dark:hover:bg-gray-800 text-gray-500 dark:text-gray-400',
