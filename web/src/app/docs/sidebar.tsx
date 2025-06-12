@@ -3,6 +3,7 @@ import styles from './sidebar.module.css';
 
 const nav = [
   { label: 'Overview', href: '/docs/overview' },
+  { label: 'API Reference', href: '/docs/api' },
   { label: 'Orchestration', href: '/docs/orchestration' },
   { label: 'Shinobi', href: '/docs/shinobi' },
   { label: 'Kata', href: '/docs/kata' },
