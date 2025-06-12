@@ -16,6 +16,7 @@ export function FloatingChatBubble({
   theme = 'auto',
   className 
 }: FloatingChatBubbleProps) {
+  console.log(theme)
   return (
     <button
       onClick={onClick}
