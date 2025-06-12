@@ -213,7 +213,7 @@ export function LegacyDocsRenderer({ docs, className }: LegacyDocsRendererProps)
   );
 }
 
-// Helper function to convert markdown files to LegacyDoc format
+// Helper function to convert markdown files to LegacyDoc format - now server-compatible
 export function createLegacyDocsFromMarkdown(markdownFiles: Array<{
   filename: string;
   content: string;
