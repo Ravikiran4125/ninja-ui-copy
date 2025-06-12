@@ -6,9 +6,110 @@ import { APIReference } from '@/components/docs/APIReference';
 import { CodeExample, codeExamples } from '@/components/docs/CodeExample';
 import { InteractivePlayground, playgroundTemplates } from '@/components/docs/InteractivePlayground';
 import { MethodPropsTable } from '@/components/docs/MethodPropsTable';
-import { LegacyDocsRenderer, createLegacyDocsFromMarkdown } from '@/components/docs/LegacyDocsRenderer';
-import { SearchableContent, createSearchableContent } from '@/components/docs/SearchableContent';
+import { LegacyDocsRenderer } from '@/components/docs/LegacyDocsRenderer';
+import { SearchableContent } from '@/components/docs/SearchableContent';
 import DocsLayout from '../layout';
+
+// Server-side helper functions (no 'use client' directive)
+interface LegacyDoc {
+  id: string;
+  title: string;
+  content: string;
+  category?: string;
+  lastModified?: Date;
+  tags?: string[];
+}
+
+interface SearchResult {
+  id: string;
+  title: string;
+  type: 'section' | 'method' | 'property' | 'example' | 'guide';
+  content: string;
+  url?: string;
+  category?: string;
+  relevance: number;
+}
+
+// Server-compatible function to create legacy docs
+function createLegacyDocsFromMarkdown(markdownFiles: Array<{
+  filename: string;
+  content: string;
+  frontmatter?: Record<string, any>;
+}>): LegacyDoc[] {
+  return markdownFiles.map((file, index) => ({
+    id: `doc-${index}`,
+    title: file.frontmatter?.title || file.filename.replace('.md', ''),
+    content: file.content,
+    category: file.frontmatter?.category || 'General',
+    lastModified: file.frontmatter?.lastModified ? new Date(file.frontmatter.lastModified) : new Date(),
+    tags: file.frontmatter?.tags || []
+  }));
+}
+
+// Server-compatible function to create searchable content
+function createSearchableContent(docs: any[]): SearchResult[] {
+  const results: SearchResult[] = [];
+
+  docs.forEach(doc => {
+    // Add main sections
+    if (doc.sections) {
+      doc.sections.forEach((section: any) => {
+        results.push({
+          id: `${doc.id}-${section.id}`,
+          title: section.title,
+          type: 'section',
+          content: section.content,
+          category: doc.title,
+          relevance: 0
+        });
+      });
+    }
+
+    // Add methods
+    if (doc.methods) {
+      doc.methods.forEach((method: any) => {
+        results.push({
+          id: `${doc.id}-method-${method.name}`,
+          title: method.name,
+          type: 'method',
+          content: method.description || '',
+          category: doc.title,
+          relevance: 0
+        });
+      });
+    }
+
+    // Add properties
+    if (doc.properties) {
+      doc.properties.forEach((prop: any) => {
+        results.push({
+          id: `${doc.id}-prop-${prop.name}`,
+          title: prop.name,
+          type: 'property',
+          content: prop.description || '',
+          category: doc.title,
+          relevance: 0
+        });
+      });
+    }
+
+    // Add examples
+    if (doc.examples) {
+      doc.examples.forEach((example: any, index: number) => {
+        results.push({
+          id: `${doc.id}-example-${index}`,
+          title: example.title || `Example ${index + 1}`,
+          type: 'example',
+          content: example.code || example.description || '',
+          category: doc.title,
+          relevance: 0
+        });
+      });
+    }
+  });
+
+  return results;
+}
 
 // Mock data for demonstration - in a real app, this would come from parsing the actual package
 const packageInfo = {
@@ -264,8 +365,8 @@ const tableColumns = [
   { key: 'required', label: 'Required', sortable: true }
 ];
 
-// Server-side function to read API documentation
-function getAPIDocumentation() {
+export default function APIDocsPage() {
+  // Read the API documentation
   const apiDocsPath = path.resolve(process.cwd(), '../packages/ninja-agents/API.md');
   let apiContent = '';
   
@@ -306,14 +407,7 @@ const result = await agent.execute(userQuery);
     apiContent = '# API Documentation\n\nError loading documentation. Please try again later.';
   }
 
-  return apiContent;
-}
-
-export default function APIDocsPage() {
-  // Read the API documentation on the server
-  const apiContent = getAPIDocumentation();
-
-  // Create legacy docs from markdown files - now done on server
+  // Create legacy docs from markdown files (server-side)
   const legacyDocs = createLegacyDocsFromMarkdown([
     {
       filename: 'API.md',
@@ -326,7 +420,7 @@ export default function APIDocsPage() {
     }
   ]);
 
-  // Create searchable content - now done on server
+  // Create searchable content (server-side)
   const searchableContent = createSearchableContent([
     {
       id: 'shuriken',
