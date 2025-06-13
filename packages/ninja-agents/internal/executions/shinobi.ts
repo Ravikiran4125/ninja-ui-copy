@@ -1,9 +1,10 @@
 import OpenAI from "openai";
-import { Logger, Shinobi } from "../../src";
-import { researchDirectorShinobi } from "../definitions/shinobi";
-import { fileManagerShuriken, webSearchShuriken } from "../definitions/shurikens";
-import { KataRuntime } from "../../src/core/kataRuntime";
-import { openai } from "../openaiClient";
+import { Logger } from "../../src/utils/Logger.js";
+import { Shinobi } from "../../src/core/shinobi.js";
+import { researchDirectorShinobi } from "../definitions/shinobi/index.js";
+import { fileManagerShuriken, webSearchShuriken } from "../definitions/shurikens/index.js";
+import { KataRuntime } from "../../src/core/kataRuntime.js";
+import { openai } from "../openaiClient.js";
 
 const logger = new Logger('info', 'OrchestrationDemo');
 
