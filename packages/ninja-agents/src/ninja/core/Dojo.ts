@@ -97,7 +97,7 @@ export class Dojo {
   async execute(userQuery: string): Promise<ExecutionResult<any>> {
     const startTime = Date.now();
     const results = [];
-    let context = { query: userQuery, results: [] };
+    let context = { query: userQuery, results: [] as any[]};
 
     try {
       for (const step of this.steps) {

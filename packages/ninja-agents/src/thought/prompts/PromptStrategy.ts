@@ -90,7 +90,7 @@ Reflection:
   private applyMultiPerspective(prompt: string): { prompt: string; reasoning: string } {
     const perspectives = this.config.config?.perspectives || ['technical', 'business', 'user'];
     
-    const perspectivePrompts = perspectives.map(p => 
+    const perspectivePrompts = perspectives.map((p:any) => 
       `${p.charAt(0).toUpperCase() + p.slice(1)} Perspective:`
     ).join('\n');
 

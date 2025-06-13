@@ -1,5 +1,6 @@
 // Main package exports - Dual-layer architecture
 
+
 // 🥷 NINJA LAYER (User-Facing API)
 export { 
   Shinobi, 
@@ -31,8 +32,11 @@ export {
 export {
   KataRuntime,
   Memory,
+} from './core/index.js';
+
+export {
   Logger
-} from './core/index';
+} from './utils/Logger.js'
 
 // 📊 TYPES & INTERFACES
 export type {

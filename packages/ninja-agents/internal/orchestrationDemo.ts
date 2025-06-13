@@ -53,8 +53,10 @@ async function main() {
     console.log(chalk.cyan(`Orchestra: ${travelOrchestra.getInfo().name}`));
     console.log(chalk.gray(`Description: ${travelOrchestra.getInfo().description}`));
     
-    await travelOrchestra.execute('I want to plan a 7-day trip to Japan in March for 2 people. What\'s the weather like, estimated costs, and best destinations to visit?');
+    let travelOrchestraResult = await travelOrchestra.execute('I want to plan a 7-day trip to Japan in March for 2 people. What\'s the weather like, estimated costs, and best destinations to visit?');
+    console.log(chalk.green(`Result: ${JSON.stringify(travelOrchestraResult, null, 2)}`));
 
+    return
     // Demo 2: Research Orchestra
     console.log('\n' + '='.repeat(80));
     console.log(chalk.bold.green('DEMO 2: RESEARCH ORCHESTRA'));
