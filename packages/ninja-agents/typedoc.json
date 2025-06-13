@@ -21,7 +21,6 @@
   ],
   "sort": ["source-order"],
   "kindSortOrder": [
-    "Document",
     "Project",
     "Module",
     "Namespace",
@@ -50,7 +49,6 @@
     "includeGroups": true
   },
   "searchInComments": true,
-  "searchInDocuments": true,
   "cleanOutputDir": true,
   "treatWarningsAsErrors": false,
   "validation": {
