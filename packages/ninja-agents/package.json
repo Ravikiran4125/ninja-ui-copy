@@ -21,6 +21,7 @@
     "build": "tsc --build",
     "clean": "rm -rf dist",
     "dev": "tsx internal/orchestrationDemo.ts",
+    "demo": "tsx internal/orchestrationDemo.ts",
     "docs:generate": "typedoc",
     "docs:serve": "typedoc --watch",
     "docs:json": "typedoc --json docs/api.json"

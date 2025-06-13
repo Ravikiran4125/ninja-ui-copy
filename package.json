@@ -14,7 +14,8 @@
     "build": "npm run build --workspace=packages/ninja-agents && npm run build --workspace=web",
     "test": "npm run test --workspace=packages/ninja-agents",
     "web:dev": "npm run dev --workspace=web",
-    "pkg:dev": "npm run demo --workspace=packages/ninja-agents"
+    "pkg:dev": "npm run demo --workspace=packages/ninja-agents",
+    "docs:generate": "npm run docs:generate --workspace=packages/ninja-agents"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"
