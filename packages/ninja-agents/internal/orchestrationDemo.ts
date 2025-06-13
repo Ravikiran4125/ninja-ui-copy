@@ -1,9 +1,9 @@
 import dotenv from 'dotenv';
 import OpenAI from 'openai';
-import { Memory } from '../src/core/memory.js';
-import { Logger } from '../src/utils/Logger.js';
-import { TravelPlanningOrchestra, ResearchOrchestra, DigitalConsultingOrchestra } from './orchestrations/index.js';
-import { CollaborativeOrchestra } from './orchestrations/collaborativeOrchestra.js';
+import { Memory } from '../src/core/memory';
+import { Logger } from '../src/utils/Logger';
+import { TravelPlanningOrchestra, ResearchOrchestra, DigitalConsultingOrchestra } from './orchestrations/index';
+import { CollaborativeOrchestra } from './orchestrations/collaborativeOrchestra';
 import chalk from 'chalk';
 
 // Load environment variables

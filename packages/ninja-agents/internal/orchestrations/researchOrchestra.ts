@@ -1,7 +1,7 @@
 import { Shinobi, Memory, Logger } from '../../src';
 import { KataRuntime } from '../../src/core/kataRuntime';
-import { researchDirectorShinobi } from '../definitions/shinobi/index.js';
-import { webSearchShuriken, fileManagerShuriken } from '../definitions/shurikens/index.js';
+import { researchDirectorShinobi } from '../definitions/shinobi/index';
+import { webSearchShuriken, fileManagerShuriken } from '../definitions/shurikens/index';
 import OpenAI from 'openai';
 
 export class ResearchOrchestra {

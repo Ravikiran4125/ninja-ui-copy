@@ -1,5 +1,5 @@
-import type { ThoughtNode, ThoughtEdge, ThoughtContext, ThoughtResult } from '../types.js';
-import { ThoughtModule } from './ThoughtModule.js';
+import type { ThoughtNode, ThoughtEdge, ThoughtContext, ThoughtResult } from '../types';
+import { ThoughtModule } from './ThoughtModule';
 
 /**
  * Directed Acyclic Graph (DAG) for complex reasoning workflows.

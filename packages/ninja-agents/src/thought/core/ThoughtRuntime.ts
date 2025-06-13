@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto';
-import { ThoughtModule } from './ThoughtModule.js';
-import { ThoughtGraph } from './ThoughtGraph.js';
-import { ThoughtMemory } from './ThoughtMemory.js';
-import { ThoughtTrace } from './ThoughtTrace.js';
-import { PromptExecutor } from '../prompts/PromptExecutor.js';
-import type { ThoughtContext, ThoughtResult } from '../types.js';
+import { ThoughtModule } from './ThoughtModule';
+import { ThoughtGraph } from './ThoughtGraph';
+import { ThoughtMemory } from './ThoughtMemory';
+import { ThoughtTrace } from './ThoughtTrace';
+import { PromptExecutor } from '../prompts/PromptExecutor';
+import type { ThoughtContext, ThoughtResult } from '../types';
 import OpenAI from 'openai';
 
 /**

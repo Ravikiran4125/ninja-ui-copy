@@ -1,6 +1,6 @@
-import { TestRunner } from '../testRunner.js';
-import { calculateCost, createBillingInfo, formatCost, getSupportedModels } from '../billingCalculator.js';
-import type { TokenUsage } from '../../core/types.js';
+import { TestRunner } from '../testRunner';
+import { calculateCost, createBillingInfo, formatCost, getSupportedModels } from '../billingCalculator';
+import type { TokenUsage } from '../../core/types';
 
 export async function runBillingCalculatorTests(): Promise<void> {
   const testRunner = new TestRunner();

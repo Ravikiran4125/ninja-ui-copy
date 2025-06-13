@@ -1,5 +1,5 @@
-import { TestRunner } from '../../utils/testRunner.js';
-import { Shuriken } from '../shuriken.js';
+import { TestRunner } from '../../utils/testRunner';
+import { Shuriken } from '../shuriken';
 import { z } from 'zod';
 
 export async function runShurikenTests(): Promise<void> {

@@ -1,7 +1,7 @@
 import { Shinobi, Memory, Logger } from '../../src';
 import { KataRuntime } from '../../src/core/kataRuntime';
-import { travelExpertShinobi, researchDirectorShinobi, digitalConsultantShinobi } from '../definitions/shinobi/index.js';
-import { weatherShuriken, calculatorShuriken, webSearchShuriken, fileManagerShuriken } from '../definitions/shurikens/index.js';
+import { travelExpertShinobi, researchDirectorShinobi, digitalConsultantShinobi } from '../definitions/shinobi/index';
+import { weatherShuriken, calculatorShuriken, webSearchShuriken, fileManagerShuriken } from '../definitions/shurikens/index';
 import OpenAI from 'openai';
 
 export class CollaborativeOrchestra {
@@ -94,7 +94,9 @@ export class CollaborativeOrchestra {
           message: 'Collaborative Orchestra completed successfully',
           context: 'collaborative_orchestra',
           execution_time: totalTime,
-          estimated_cost: totalCost,
+          estimated_cost: total
+
+,
           metadata: {
             orchestra_type: 'collaborative',
             user_query: userQuery,

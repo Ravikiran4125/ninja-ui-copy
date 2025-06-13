@@ -1,4 +1,4 @@
-export { weatherShuriken } from './weatherShuriken.js';
-export { calculatorShuriken } from './calculatorShuriken.js';
-export { webSearchShuriken } from './webSearchShuriken.js';
-export { fileManagerShuriken } from './fileManagerShuriken.js';
+export { weatherShuriken } from './weatherShuriken';
+export { calculatorShuriken } from './calculatorShuriken';
+export { webSearchShuriken } from './webSearchShuriken';
+export { fileManagerShuriken } from './fileManagerShuriken';

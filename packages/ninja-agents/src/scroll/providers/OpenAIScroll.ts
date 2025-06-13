@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
-import { Scroll } from '../core/Scroll.js';
+import { Scroll } from '../core/Scroll';
 import type {
   ScrollConfig,
   ScrollResponse,
@@ -9,9 +9,9 @@ import type {
   GenerateObjectOptions,
   StreamTextOptions,
   StreamObjectOptions
-} from '../types.js';
-import type { TokenUsage } from '../../core/types.js';
-import { createBillingInfo } from '../../utils/billingCalculator.js';
+} from '../types';
+import type { TokenUsage } from '../../core/types';
+import { createBillingInfo } from '../../utils/billingCalculator';
 
 /**
  * OpenAI implementation of the Scroll interface.

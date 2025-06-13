@@ -7,7 +7,7 @@ export {
   Shuriken, 
   Clan, 
   Dojo 
-} from './ninja/index.js';
+} from './ninja/index';
 
 // 🧠 THOUGHT SYSTEM (Internal Reasoning Engine)
 export {
@@ -19,20 +19,20 @@ export {
   PromptTemplate,
   PromptStrategy,
   PromptExecutor
-} from './thought/index.js';
+} from './thought/index';
 
 // 📜 SCROLL LAYER (LLM Provider Abstraction)
 export {
   Scroll,
   OpenAIScroll
-} from './scroll/index.js';
+} from './scroll/index';
 
 // 🛠️ CORE UTILITIES (Existing)
 export {
   KataRuntime,
   Memory,
   Logger
-} from './core/index.js';
+} from './core/index';
 
 // 📊 TYPES & INTERFACES
 export type {
@@ -43,7 +43,7 @@ export type {
   DojoConfig,
   ClanStrategy,
   DojoStep
-} from './ninja/types.js';
+} from './ninja/types';
 
 export type {
   // Thought System Types
@@ -53,7 +53,7 @@ export type {
   PromptTemplateConfig,
   PromptStrategyConfig,
   ExecutionTrace
-} from './thought/types.js';
+} from './thought/types';
 
 export type {
   // Scroll Layer Types
@@ -64,7 +64,7 @@ export type {
   GenerateObjectOptions,
   StreamTextOptions,
   StreamObjectOptions
-} from './scroll/types.js';
+} from './scroll/types';
 
 export type {
   // Core Types (Existing)
@@ -73,10 +73,10 @@ export type {
   TokenUsage,
   OpenAIParameters,
   ShinobiPersonaContext
-} from './core/types.js';
+} from './core/types';
 
 export type {
   // Legacy exports for backward compatibility
   MemoryConfig,
   LogEntry
-} from './core/memory.js';
+} from './core/memory';

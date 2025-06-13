@@ -1,7 +1,7 @@
 import OpenAI from 'openai';
 import { z } from 'zod';
-import type { ExecutionResult, TokenUsage, BillingInfo } from '../../core/types.js';
-import { createBillingInfo } from '../../utils/billingCalculator.js';
+import type { ExecutionResult, TokenUsage, BillingInfo } from '../../core/types';
+import { createBillingInfo } from '../../utils/billingCalculator';
 
 interface ExecuteOptions {
   prompt: string;

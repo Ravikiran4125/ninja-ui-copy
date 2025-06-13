@@ -1,3 +1,3 @@
-export { TravelPlanningOrchestra } from './travelPlanningOrchestra.js';
-export { ResearchOrchestra } from './researchOrchestra.js';
-export { DigitalConsultingOrchestra } from './digitalConsultingOrchestra.js';
+export { TravelPlanningOrchestra } from './travelPlanningOrchestra';
+export { ResearchOrchestra } from './researchOrchestra';
+export { DigitalConsultingOrchestra } from './digitalConsultingOrchestra';

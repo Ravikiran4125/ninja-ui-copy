@@ -1,9 +1,9 @@
-import { Kata as CoreKata } from '../../core/kata.js';
-import { ThoughtModule } from '../../thought/core/ThoughtModule.js';
-import { PromptExecutor } from '../../thought/prompts/PromptExecutor.js';
-import type { KataConfig } from '../types.js';
-import type { KataRuntime } from '../../core/kataRuntime.js';
-import type { ExecutionResult } from '../../core/types.js';
+import { Kata as CoreKata } from '../../core/kata';
+import { ThoughtModule } from '../../thought/core/ThoughtModule';
+import { PromptExecutor } from '../../thought/prompts/PromptExecutor';
+import type { KataConfig } from '../types';
+import type { KataRuntime } from '../../core/kataRuntime';
+import type { ExecutionResult } from '../../core/types';
 
 /**
  * Enhanced Kata with ThoughtSystem integration.

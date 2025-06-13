@@ -1,12 +1,12 @@
 // Thought Layer - Core reasoning engine exports
-export { ThoughtModule } from './core/ThoughtModule.js';
-export { ThoughtRuntime } from './core/ThoughtRuntime.js';
-export { ThoughtGraph } from './core/ThoughtGraph.js';
-export { ThoughtMemory } from './core/ThoughtMemory.js';
-export { ThoughtTrace } from './core/ThoughtTrace.js';
-export { PromptTemplate } from './prompts/PromptTemplate.js';
-export { PromptStrategy } from './prompts/PromptStrategy.js';
-export { PromptExecutor } from './prompts/PromptExecutor.js';
+export { ThoughtModule } from './core/ThoughtModule';
+export { ThoughtRuntime } from './core/ThoughtRuntime';
+export { ThoughtGraph } from './core/ThoughtGraph';
+export { ThoughtMemory } from './core/ThoughtMemory';
+export { ThoughtTrace } from './core/ThoughtTrace';
+export { PromptTemplate } from './prompts/PromptTemplate';
+export { PromptStrategy } from './prompts/PromptStrategy';
+export { PromptExecutor } from './prompts/PromptExecutor';
 
 // Types
 export type {
@@ -16,4 +16,4 @@ export type {
   PromptTemplateConfig,
   PromptStrategyConfig,
   ExecutionTrace
-} from './types.js';
+} from './types';

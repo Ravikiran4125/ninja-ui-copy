@@ -1,12 +1,12 @@
 import { randomUUID } from 'crypto';
 import OpenAI from 'openai';
 import { z } from 'zod';
-import { Logger } from '../utils/Logger.js';
-import { KataRuntime } from './kataRuntime.js';
-import { Shuriken } from './shuriken.js';
-import type { OpenAITools, OpenAIParameters, ExecutionResult, BillingInfo, ShinobiPersonaContext } from './types.js';
-import { generateText, streamText, generateObject, streamObject } from '../utils/openaiUtils.js';
-import { formatCost } from '../utils/billingCalculator.js';
+import { Logger } from '../utils/Logger';
+import { KataRuntime } from './kataRuntime';
+import { Shuriken } from './shuriken';
+import type { OpenAITools, OpenAIParameters, ExecutionResult, BillingInfo, ShinobiPersonaContext } from './types';
+import { generateText, streamText, generateObject, streamObject } from '../utils/openaiUtils';
+import { formatCost } from '../utils/billingCalculator';
 
 /**
  * Configuration interface for creating a Kata instance.

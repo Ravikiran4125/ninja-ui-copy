@@ -1,10 +1,10 @@
-import { Shinobi as CoreShinobi } from '../../core/shinobi.js';
-import { ThoughtRuntime } from '../../thought/core/ThoughtRuntime.js';
-import { ThoughtModule } from '../../thought/core/ThoughtModule.js';
-import { PromptExecutor } from '../../thought/prompts/PromptExecutor.js';
-import type { ShinobiConfig } from '../types.js';
-import type { KataRuntime } from '../../core/kataRuntime.js';
-import type { ExecutionResult } from '../../core/types.js';
+import { Shinobi as CoreShinobi } from '../../core/shinobi';
+import { ThoughtRuntime } from '../../thought/core/ThoughtRuntime';
+import { ThoughtModule } from '../../thought/core/ThoughtModule';
+import { PromptExecutor } from '../../thought/prompts/PromptExecutor';
+import type { ShinobiConfig } from '../types';
+import type { KataRuntime } from '../../core/kataRuntime';
+import type { ExecutionResult } from '../../core/types';
 
 /**
  * Enhanced Shinobi with ThoughtSystem integration.

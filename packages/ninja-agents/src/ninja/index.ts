@@ -1,9 +1,9 @@
 // Ninja Layer - User-facing API with enhanced capabilities
-export { Shinobi } from './core/Shinobi.js';
-export { Kata } from './core/Kata.js';
-export { Shuriken } from './core/Shuriken.js';
-export { Clan } from './core/Clan.js';
-export { Dojo } from './core/Dojo.js';
+export { Shinobi } from './core/Shinobi';
+export { Kata } from './core/Kata';
+export { Shuriken } from './core/Shuriken';
+export { Clan } from './core/Clan';
+export { Dojo } from './core/Dojo';
 
 // Types
 export type {
@@ -13,4 +13,4 @@ export type {
   DojoConfig,
   ClanStrategy,
   DojoStep
-} from './types.js';
+} from './types';

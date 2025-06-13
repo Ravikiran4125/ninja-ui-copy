@@ -1,7 +1,7 @@
 import { Shinobi, Memory, Logger } from '../../src';
 import { KataRuntime } from '../../src/core/kataRuntime';
-import { travelExpertShinobi } from '../definitions/shinobi/index.js';
-import { weatherShuriken, calculatorShuriken, webSearchShuriken } from '../definitions/shurikens/index.js';
+import { travelExpertShinobi } from '../definitions/shinobi/index';
+import { weatherShuriken, calculatorShuriken, webSearchShuriken } from '../definitions/shurikens/index';
 import OpenAI from 'openai';
 
 export class TravelPlanningOrchestra {

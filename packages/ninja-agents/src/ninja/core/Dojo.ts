@@ -1,9 +1,9 @@
 import { randomUUID } from 'crypto';
-import type { DojoConfig, DojoStep } from '../types.js';
-import { Shinobi } from './Shinobi.js';
-import { Clan } from './Clan.js';
-import { KataRuntime } from '../../core/kataRuntime.js';
-import type { ExecutionResult } from '../../core/types.js';
+import type { DojoConfig, DojoStep } from '../types';
+import { Shinobi } from './Shinobi';
+import { Clan } from './Clan';
+import { KataRuntime } from '../../core/kataRuntime';
+import type { ExecutionResult } from '../../core/types';
 
 /**
  * Workflow orchestration system with fluent API.

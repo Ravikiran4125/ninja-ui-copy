@@ -1,10 +1,10 @@
 import { randomUUID } from 'crypto';
-import { Logger } from '../utils/Logger.js';
-import { KataRuntime } from './kataRuntime.js';
-import { Kata, KataConfig } from './kata.js';
-import { Shuriken } from './shuriken.js';
-import type { ExecutionResult, BillingInfo, ShinobiPersonaContext } from './types.js';
-import { formatCost } from '../utils/billingCalculator.js';
+import { Logger } from '../utils/Logger';
+import { KataRuntime } from './kataRuntime';
+import { Kata, KataConfig } from './kata';
+import { Shuriken } from './shuriken';
+import type { ExecutionResult, BillingInfo, ShinobiPersonaContext } from './types';
+import { formatCost } from '../utils/billingCalculator';
 
 /**
  * Configuration interface for creating a Shinobi instance.

@@ -1,6 +1,6 @@
 // Scroll Layer - LLM Provider Abstraction
-export { Scroll } from './core/Scroll.js';
-export { OpenAIScroll } from './providers/OpenAIScroll.js';
+export { Scroll } from './core/Scroll';
+export { OpenAIScroll } from './providers/OpenAIScroll';
 
 // Types
 export type {
@@ -11,4 +11,4 @@ export type {
   GenerateObjectOptions,
   StreamTextOptions,
   StreamObjectOptions
-} from './types.js';
+} from './types';

@@ -5,10 +5,10 @@ import type {
   ThoughtContext, 
   ThoughtResult, 
   ExecutionTrace 
-} from '../types.js';
-import { PromptTemplate } from '../prompts/PromptTemplate.js';
-import { PromptStrategy } from '../prompts/PromptStrategy.js';
-import { PromptExecutor } from '../prompts/PromptExecutor.js';
+} from '../types';
+import { PromptTemplate } from '../prompts/PromptTemplate';
+import { PromptStrategy } from '../prompts/PromptStrategy';
+import { PromptExecutor } from '../prompts/PromptExecutor';
 
 /**
  * Core abstraction for reasoning modules in the ThoughtSystem.

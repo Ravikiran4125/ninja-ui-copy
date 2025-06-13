@@ -1,7 +1,7 @@
 import { Shinobi, Memory, Logger } from '../../src';
 import { KataRuntime } from '../../src/core/kataRuntime';
-import { digitalConsultantShinobi } from '../definitions/shinobi/index.js';
-import { webSearchShuriken, fileManagerShuriken, calculatorShuriken } from '../definitions/shurikens/index.js';
+import { digitalConsultantShinobi } from '../definitions/shinobi/index';
+import { webSearchShuriken, fileManagerShuriken, calculatorShuriken } from '../definitions/shurikens/index';
 import OpenAI from 'openai';
 
 export class DigitalConsultingOrchestra {

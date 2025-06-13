@@ -1,2 +1,2 @@
 // Re-export core Shuriken as it doesn't need enhancement
-export { Shuriken } from '../../core/shuriken.js';
+export { Shuriken } from '../../core/shuriken';

@@ -1,5 +1,5 @@
-import { ShinobiConfig } from '../../../src/core/shinobi.js';
-import { weatherAnalysisKata, costCalculatorKata, destinationRecommenderKata } from '../katas/index.js';
+import { ShinobiConfig } from '../../../src/core/shinobi';
+import { weatherAnalysisKata, costCalculatorKata, destinationRecommenderKata } from '../katas/index';
 
 export const travelExpertShinobi: ShinobiConfig = {
   role: 'Expert Travel Assistant',

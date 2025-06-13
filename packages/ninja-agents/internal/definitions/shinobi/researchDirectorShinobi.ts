@@ -1,5 +1,5 @@
-import { ShinobiConfig } from '../../../src/core/shinobi.js';
-import { researchAnalystKata, contentCreatorKata, technicalWriterKata } from '../katas/index.js';
+import { ShinobiConfig } from '../../../src/core/shinobi';
+import { researchAnalystKata, contentCreatorKata, technicalWriterKata } from '../katas/index';
 
 export const researchDirectorShinobi: ShinobiConfig = {
   role: 'Research Director',

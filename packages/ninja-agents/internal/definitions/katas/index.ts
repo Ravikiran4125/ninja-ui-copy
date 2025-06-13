@@ -1,6 +1,6 @@
-export { weatherAnalysisKata } from './weatherAnalysisKata.js';
-export { costCalculatorKata } from './costCalculatorKata.js';
-export { destinationRecommenderKata } from './destinationRecommenderKata.js';
-export { researchAnalystKata } from './researchAnalystKata.js';
-export { contentCreatorKata } from './contentCreatorKata.js';
-export { technicalWriterKata } from './technicalWriterKata.js';
+export { weatherAnalysisKata } from './weatherAnalysisKata';
+export { costCalculatorKata } from './costCalculatorKata';
+export { destinationRecommenderKata } from './destinationRecommenderKata';
+export { researchAnalystKata } from './researchAnalystKata';
+export { contentCreatorKata } from './contentCreatorKata';
+export { technicalWriterKata } from './technicalWriterKata';

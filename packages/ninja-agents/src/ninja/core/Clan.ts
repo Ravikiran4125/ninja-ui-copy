@@ -1,8 +1,8 @@
 import { randomUUID } from 'crypto';
-import type { ClanConfig, ClanStrategy } from '../types.js';
-import { Shinobi } from './Shinobi.js';
-import { KataRuntime } from '../../core/kataRuntime.js';
-import type { ExecutionResult } from '../../core/types.js';
+import type { ClanConfig, ClanStrategy } from '../types';
+import { Shinobi } from './Shinobi';
+import { KataRuntime } from '../../core/kataRuntime';
+import type { ExecutionResult } from '../../core/types';
 
 /**
  * Agent network for coordinating multiple Shinobi.

@@ -1,9 +1,9 @@
-import { Shinobi } from '../src/core/shinobi.js';
-import { Shuriken } from '../src/core/shuriken.js';
-import { Memory } from '../src/core/memory.js';
-import { Logger } from '../src/utils/Logger.js';
-import { KataRuntime } from '../src/core/kataRuntime.js';
-import { openai } from './openaiClient.js';
+import { Shinobi } from '../src/core/shinobi';
+import { Shuriken } from '../src/core/shuriken';
+import { Memory } from '../src/core/memory';
+import { Logger } from '../src/utils/Logger';
+import { KataRuntime } from '../src/core/kataRuntime';
+import { openai } from './openaiClient';
 import { z } from 'zod';
 
 const logger = new Logger('info');
