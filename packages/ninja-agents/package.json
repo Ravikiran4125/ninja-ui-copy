@@ -20,7 +20,10 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist",
-    "dev": "tsx internal/orchestrationDemo.ts"
+    "dev": "tsx internal/orchestrationDemo.ts",
+    "docs:generate": "typedoc",
+    "docs:serve": "typedoc --watch",
+    "docs:json": "typedoc --json docs/api.json"
   },
   "dependencies": {
     "openai": "^4.0.0",
@@ -31,6 +34,8 @@
   },
   "devDependencies": {
     "tsx": "^4.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "typedoc": "^0.25.0",
+    "typedoc-plugin-markdown": "^3.17.0"
   }
 }

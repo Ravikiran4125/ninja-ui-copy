@@ -4,11 +4,14 @@ import OpenAI from 'openai';
 import type { ExecutionResult } from './types.js';
 
 /**
+ * @group Core Components
+ * @category Shuriken
+ * 
  * Represents an AI capability or function that can be invoked by an AI agent (Kata).
  * Shurikens encapsulate both the definition (for OpenAI tool calling) and the
  * implementation of a specific function.
  * 
- * @example
+ * @example Basic Shuriken Creation
  * ```typescript
  * const weatherShuriken = new Shuriken(
  *   'get_weather',
@@ -23,6 +26,26 @@ import type { ExecutionResult } from './types.js';
  *   }
  * );
  * ```
+ * 
+ * @example Using a Shuriken
+ * ```typescript
+ * // Execute the shuriken
+ * const result = await weatherShuriken.execute({ 
+ *   city: 'Paris', 
+ *   unit: 'celsius' 
+ * });
+ * 
+ * // Validate parameters
+ * const validation = weatherShuriken.validate({ city: 'London' });
+ * if (validation.success) {
+ *   console.log('Valid parameters:', validation.data);
+ * }
+ * 
+ * // Generate OpenAI tool definition
+ * const toolDef = weatherShuriken.forge();
+ * ```
+ * 
+ * @since 1.0.0
  */
 export class Shuriken {
   private title: string;
@@ -34,12 +57,13 @@ export class Shuriken {
   /**
    * Creates an instance of Shuriken.
    * 
-   * @param title The name of the shuriken, used as the function name in OpenAI tool calls.
-   * @param description A brief description of what the shuriken does. This helps the AI decide when to use it.
-   * @param schema A Zod schema defining the expected parameters for the shuriken's implementation.
-   * @param implementation The actual JavaScript/TypeScript function that performs the shuriken's logic.
+   * @param title - The name of the shuriken, used as the function name in OpenAI tool calls.
+   *                Must contain only alphanumeric characters, underscores, and hyphens.
+   * @param description - A brief description of what the shuriken does. This helps the AI decide when to use it.
+   * @param schema - A Zod schema defining the expected parameters for the shuriken's implementation.
+   * @param implementation - The actual JavaScript/TypeScript function that performs the shuriken's logic.
    * 
-   * @example
+   * @example Creating a Calculator Shuriken
    * ```typescript
    * const calculator = new Shuriken(
    *   'calculate',
@@ -59,6 +83,8 @@ export class Shuriken {
    *   }
    * );
    * ```
+   * 
+   * @since 1.0.0
    */
   constructor(title: string, description: string, schema: z.ZodSchema, implementation: Function) {
     this.title = title;
@@ -72,9 +98,9 @@ export class Shuriken {
    * Converts the internal Zod schema to a JSON Schema format compatible with OpenAI's tool definitions.
    * This method recursively processes the Zod schema to build the corresponding JSON Schema.
    * 
-   * @param schema The Zod schema to convert.
+   * @param schema - The Zod schema to convert.
    * @returns A JSON Schema object representing the Zod schema.
-   * @private
+   * @internal
    */
   private zodToJsonSchema(schema: z.ZodSchema): any {
     if (schema instanceof z.ZodObject) {
@@ -160,9 +186,9 @@ export class Shuriken {
    * Generates the OpenAI tool definition for this shuriken.
    * This definition is used by OpenAI models to understand and call the shuriken.
    * 
-   * @returns An OpenAI ChatCompletionTool object.
+   * @returns An OpenAI ChatCompletionTool object that can be used in API calls.
    * 
-   * @example
+   * @example Generating Tool Definition
    * ```typescript
    * const weatherShuriken = new Shuriken(
    *   'get_weather',
@@ -170,6 +196,7 @@ export class Shuriken {
    *   z.object({ city: z.string() }),
    *   async (params) => ({ temperature: 25, condition: 'Sunny' })
    * );
+   * 
    * const toolDefinition = weatherShuriken.forge();
    * // toolDefinition will be:
    * // {
@@ -181,6 +208,8 @@ export class Shuriken {
    * //   }
    * // }
    * ```
+   * 
+   * @since 1.0.0
    */
   forge(): OpenAI.Chat.Completions.ChatCompletionTool {
     return {
@@ -196,10 +225,10 @@ export class Shuriken {
   /**
    * Validates the given parameters against the shuriken's defined Zod schema.
    * 
-   * @param parameters The parameters to validate.
+   * @param parameters - The parameters to validate.
    * @returns An object indicating success or failure, with data or error details.
    * 
-   * @example
+   * @example Parameter Validation
    * ```typescript
    * const validation = shuriken.validate({ city: 'Paris' });
    * if (validation.success) {
@@ -208,6 +237,8 @@ export class Shuriken {
    *   console.error('Validation error:', validation.error);
    * }
    * ```
+   * 
+   * @since 1.0.0
    */
   validate(parameters: any): { success: boolean; data?: any; error?: string } {
     try {
@@ -228,11 +259,11 @@ export class Shuriken {
    * Executes the shuriken's underlying implementation function with the provided parameters.
    * Parameters are validated against the schema before execution.
    * 
-   * @param parameters The parameters to pass to the shuriken's implementation.
+   * @param parameters - The parameters to pass to the shuriken's implementation.
    * @returns A promise that resolves to an ExecutionResult containing the result and execution time.
    * @throws {Error} If parameter validation fails or if the shuriken's implementation throws an error.
    * 
-   * @example
+   * @example Executing a Shuriken
    * ```typescript
    * const calculator = new Shuriken(
    *   'add',
@@ -249,6 +280,8 @@ export class Shuriken {
    *   console.error('Execution failed:', error.message);
    * }
    * ```
+   * 
+   * @since 1.0.0
    */
   async execute(parameters: any): Promise<ExecutionResult<any>> {
     const startTime = Date.now();
@@ -276,6 +309,7 @@ export class Shuriken {
    * Gets the unique identifier for this shuriken.
    * 
    * @returns The shuriken's UUID.
+   * @since 1.0.0
    */
   getId(): string {
     return this.shurikenId;
@@ -285,6 +319,7 @@ export class Shuriken {
    * Gets the name (title) of the shuriken.
    * 
    * @returns The shuriken's name.
+   * @since 1.0.0
    */
   getName(): string {
     return this.title;
@@ -294,6 +329,7 @@ export class Shuriken {
    * Gets the description of the shuriken.
    * 
    * @returns The shuriken's description.
+   * @since 1.0.0
    */
   getDescription(): string {
     return this.description;
@@ -303,6 +339,7 @@ export class Shuriken {
    * Gets the underlying implementation function of the shuriken.
    * 
    * @returns The shuriken's implementation function.
+   * @since 1.0.0
    */
   getImplementation(): Function {
     return this.implementation;
@@ -312,6 +349,7 @@ export class Shuriken {
    * Gets the Zod schema used for validating the shuriken's parameters.
    * 
    * @returns The shuriken's Zod schema.
+   * @since 1.0.0
    */
   getSchema(): z.ZodSchema {
     return this.schema;

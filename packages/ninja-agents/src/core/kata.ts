@@ -9,8 +9,13 @@ import { generateText, streamText, generateObject, streamObject } from '../utils
 import { formatCost } from '../utils/billingCalculator';
 
 /**
+ * @group Core Components
+ * @category Kata
+ * 
  * Configuration interface for creating a Kata instance.
  * Defines the behavior, capabilities, and personality of an AI agent.
+ * 
+ * @since 1.0.0
  */
 export interface KataConfig {
   /** The OpenAI model to use for this Kata (e.g., 'gpt-4o-mini', 'gpt-4') */
@@ -34,11 +39,14 @@ export interface KataConfig {
 }
 
 /**
+ * @group Core Components
+ * @category Kata
+ * 
  * Represents a specialized AI agent focused on specific tasks and workflows.
  * Katas are the core execution units that handle conversations, use shurikens,
  * and provide domain-specific expertise within the AI crew system.
  * 
- * @example
+ * @example Basic Kata Creation
  * ```typescript
  * const weatherAnalyst = new Kata(runtime, {
  *   model: 'gpt-4o-mini',
@@ -50,6 +58,33 @@ export interface KataConfig {
  * 
  * const result = await weatherAnalyst.execute('What\'s the weather like in Paris?');
  * ```
+ * 
+ * @example Kata with Streaming
+ * ```typescript
+ * const streamingKata = new Kata(runtime, {
+ *   model: 'gpt-4o-mini',
+ *   title: 'Creative Writer',
+ *   description: 'Generate creative content with real-time streaming',
+ *   stream: true,
+ *   parameters: { temperature: 0.9, max_tokens: 500 }
+ * });
+ * ```
+ * 
+ * @example Kata with Structured Output
+ * ```typescript
+ * const structuredKata = new Kata(runtime, {
+ *   model: 'gpt-4o-mini',
+ *   title: 'Data Analyzer',
+ *   description: 'Analyze data and return structured results',
+ *   responseSchema: z.object({
+ *     summary: z.string(),
+ *     insights: z.array(z.string()),
+ *     confidence: z.number()
+ *   })
+ * });
+ * ```
+ * 
+ * @since 1.0.0
  */
 export class Kata {
   private runtime: KataRuntime;
@@ -63,8 +98,10 @@ export class Kata {
   /**
    * Creates a new Kata instance.
    * 
-   * @param runtime The KataRuntime providing dependencies (OpenAI client, logger, memory)
-   * @param config Configuration object defining the Kata's behavior and capabilities
+   * @param runtime - The KataRuntime providing dependencies (OpenAI client, logger, memory)
+   * @param config - Configuration object defining the Kata's behavior and capabilities
+   * 
+   * @since 1.0.0
    */
   constructor(runtime: KataRuntime, config: KataConfig) {
     this.runtime = runtime;
@@ -86,14 +123,16 @@ export class Kata {
    * Add a shuriken capability to this kata.
    * The shuriken will be available for the AI to use during conversations.
    * 
-   * @param shuriken The Shuriken instance to add
+   * @param shuriken - The Shuriken instance to add
    * 
-   * @example
+   * @example Adding Shurikens to a Kata
    * ```typescript
    * const kata = new Kata(runtime, config);
    * kata.addShuriken(weatherShuriken);
    * kata.addShuriken(calculatorShuriken);
    * ```
+   * 
+   * @since 1.0.0
    */
   addShuriken(shuriken: Shuriken): void {
     const shurikenDefinition = shuriken.forge();
@@ -108,16 +147,18 @@ export class Kata {
    * This is the main entry point for Kata execution, handling the complete
    * conversation flow including shuriken usage and response generation.
    * 
-   * @param userQuery The user's request or question
+   * @param userQuery - The user's request or question
    * @returns Promise resolving to an ExecutionResult with the response and metadata
    * 
-   * @example
+   * @example Executing a Kata
    * ```typescript
    * const result = await kata.execute('Calculate the weather impact on travel costs for Paris in December');
    * console.log(result.result); // The AI's response
    * console.log(result.executionTime); // Time taken in milliseconds
    * console.log(result.billingInfo?.estimatedCost); // Estimated cost in USD
    * ```
+   * 
+   * @since 1.0.0
    */
   async execute(userQuery: string): Promise<ExecutionResult<string | any>> {
     await this.logger.kataStart(this.config.title, userQuery, this.kataId);
@@ -168,7 +209,11 @@ export class Kata {
    * Execute kata with shurikens (multi-turn conversation).
    * Handles the complex flow of AI deciding to use tools and processing results.
    * 
-   * @private
+   * @param userQuery - The user's query
+   * @param hasStream - Whether streaming is enabled
+   * @param hasSchema - Whether structured output is expected
+   * @returns Promise resolving to execution result
+   * @internal
    */
   private async executeWithShurikens(
     userQuery: string, 
@@ -269,7 +314,11 @@ export class Kata {
    * Execute kata directly without shurikens.
    * Used when the Kata has no capabilities or for simple text generation.
    * 
-   * @private
+   * @param userQuery - The user's query
+   * @param hasStream - Whether streaming is enabled
+   * @param hasSchema - Whether structured output is expected
+   * @returns Promise resolving to execution result
+   * @internal
    */
   private async executeDirect(
     userQuery: string, 
@@ -297,7 +346,8 @@ export class Kata {
    * Build system content with enhanced prompt engineering.
    * Creates the system prompt that defines the Kata's personality and behavior.
    * 
-   * @private
+   * @returns The constructed system prompt
+   * @internal
    */
   private buildSystemContent(): string {
     let systemContent = '';
@@ -356,7 +406,11 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Generate final response using appropriate utility function.
    * Handles different response modes (streaming, structured, etc.).
    * 
-   * @private
+   * @param messages - The conversation messages
+   * @param hasStream - Whether streaming is enabled
+   * @param hasSchema - Whether structured output is expected
+   * @returns Promise resolving to execution result
+   * @internal
    */
   private async generateFinalResponse(
     messages: OpenAI.Chat.Completions.ChatCompletionMessageParam[],
@@ -414,7 +468,9 @@ CRITICAL BEHAVIORAL GUIDELINES:
   /**
    * Execute a shuriken call using the registered implementation.
    * 
-   * @private
+   * @param shurikenCall - The OpenAI tool call to execute
+   * @returns Promise resolving to the shuriken result
+   * @internal
    */
   private async executeShurikenCall(shurikenCall: OpenAI.Chat.Completions.ChatCompletionMessageToolCall) {
     const { name, arguments: args } = shurikenCall.function;
@@ -441,7 +497,9 @@ CRITICAL BEHAVIORAL GUIDELINES:
   /**
    * Calculate cost for token usage (simplified version).
    * 
-   * @private
+   * @param tokenUsage - Token usage information
+   * @returns Estimated cost in USD
+   * @internal
    */
   private calculateCost(tokenUsage: any): number {
     // Simplified cost calculation - you can enhance this based on your billing calculator
@@ -453,7 +511,8 @@ CRITICAL BEHAVIORAL GUIDELINES:
   /**
    * Log billing information.
    * 
-   * @private
+   * @param result - The execution result containing billing info
+   * @internal
    */
   private logBillingInfo(result: ExecutionResult<any>): void {
     if (result.billingInfo) {
@@ -468,6 +527,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get the Kata ID.
    * 
    * @returns The unique identifier for this Kata instance
+   * @since 1.0.0
    */
   getId(): string {
     return this.kataId;
@@ -477,6 +537,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get total billing information for this kata.
    * 
    * @returns Array of all billing information from executions
+   * @since 1.0.0
    */
   getTotalBillingInfo(): BillingInfo[] {
     return [...this.totalBillingInfo];
@@ -486,6 +547,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get total estimated cost for this kata.
    * 
    * @returns Total cost in USD across all executions
+   * @since 1.0.0
    */
   getTotalEstimatedCost(): number {
     return this.totalBillingInfo.reduce((total, billing) => total + billing.estimatedCost, 0);
@@ -495,6 +557,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get total token usage for this kata.
    * 
    * @returns Aggregated token usage across all executions
+   * @since 1.0.0
    */
   getTotalTokenUsage(): { prompt_tokens: number; completion_tokens: number; total_tokens: number } {
     return this.totalBillingInfo.reduce(
@@ -511,6 +574,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get the kata configuration.
    * 
    * @returns A copy of the Kata's configuration
+   * @since 1.0.0
    */
   getConfig(): KataConfig {
     return { ...this.config };
@@ -520,6 +584,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get the number of registered shurikens.
    * 
    * @returns Count of available shurikens
+   * @since 1.0.0
    */
   getShurikenCount(): number {
     return this.shurikenDefinitions.length;
@@ -529,6 +594,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get the names of all registered shurikens.
    * 
    * @returns Array of shuriken names
+   * @since 1.0.0
    */
   getShurikenNames(): string[] {
     return Array.from(this.shurikenImplementations.keys());
@@ -538,6 +604,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Get all registered shurikens.
    * 
    * @returns Array of Shuriken instances
+   * @since 1.0.0
    */
   getShurikens(): Shuriken[] {
     return Array.from(this.shurikenImplementations.values());
@@ -546,7 +613,8 @@ CRITICAL BEHAVIORAL GUIDELINES:
   /**
    * Update kata configuration.
    * 
-   * @param updates Partial configuration updates to apply
+   * @param updates - Partial configuration updates to apply
+   * @since 1.0.0
    */
   updateConfig(updates: Partial<KataConfig>): void {
     this.config = { ...this.config, ...updates };
@@ -557,6 +625,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Check if kata has streaming enabled.
    * 
    * @returns True if streaming is enabled
+   * @since 1.0.0
    */
   isStreamingEnabled(): boolean {
     return this.config.stream === true;
@@ -566,6 +635,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Check if kata has response schema configured.
    * 
    * @returns True if structured output is configured
+   * @since 1.0.0
    */
   hasResponseSchema(): boolean {
     return this.config.responseSchema !== undefined;
@@ -575,6 +645,7 @@ CRITICAL BEHAVIORAL GUIDELINES:
    * Check if kata requires human input.
    * 
    * @returns True if human input is required during execution
+   * @since 1.0.0
    */
   requiresHumanInput(): boolean {
     return this.config.requiresHumanInput === true;
