@@ -20,7 +20,8 @@
   "scripts": {
     "build": "tsc --build",
     "clean": "rm -rf dist",
-    "demo": "tsx internal/orchestrationDemo.ts"
+    "demo": "tsx internal/orchestrationDemo.ts",
+    "dev": "npm run demo"
   },
   "dependencies": {
     "openai": "^4.0.0",
