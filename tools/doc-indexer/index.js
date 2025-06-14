@@ -62,13 +62,10 @@ async function main() {
       
       if (file.path.endsWith('.md')) {
         fileChunks = await markdownProcessor.process(file);
-        logger.info('Markdown Files' , file);
       } else if (file.path.endsWith('.ts') || file.path.endsWith('.tsx')) {
         fileChunks = await typeScriptProcessor.process(file);
-        logger.info('Processing files and generating chunks...');
       } else if (file.path.includes('typedoc.json')) {
         fileChunks = await typedocProcessor.process(file);
-        logger.info('Processing files and generating chunks...');
       } else {
         logger.debug(`Skipping unsupported file type: ${file.path}`);
         continue;
@@ -103,8 +100,19 @@ async function main() {
 
     // Print summary
     logger.info('Indexing complete!');
+
+    const mdCount = files.filter(f => f.path.endsWith('.md')).length;
+    const tsCount = files.filter(f => f.path.endsWith('.ts') || f.path.endsWith('.tsx')).length;
+    const typedocCount = files.filter(f => f.path.includes('typedoc.json')).length;
+    
+    logger.info(`📄 Breakdown by file type:`);
+    logger.info(`   - Markdown (.md):        ${mdCount}`);
+    logger.info(`   - TypeScript (.ts/.tsx): ${tsCount}`);
+    logger.info(`   - Typedoc JSON:          ${typedocCount}`);
+        
     logger.info(`Processed ${files.length} files`);
     logger.info(`Generated ${chunks.length} chunks`);
+
     
     if (config.dryRun) {
       const estimatedTokens = chunks.reduce((acc, chunk) => acc + Math.ceil(chunk.content.length / 4), 0);
