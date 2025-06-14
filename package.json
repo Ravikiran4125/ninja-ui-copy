@@ -15,7 +15,7 @@
     "test": "npm run test --workspace=packages/ninja-agents",
     "web:dev": "npm run dev --workspace=web",
     "pkg:dev": "npm run demo --workspace=packages/ninja-agents",
-    "docs:generate": "npm run docs:generate --workspace=packages/ninja-agents && npm run docs:json --workspace=packages/ninja-agents && rm -rf web/public/agents_docs && mv packages/ninja-agents/docs web/public/agents_docs"
+    "docs:generate": "npm run docs:generate --workspace=packages/ninja-agents && npm run docs:json --workspace=packages/ninja-agents && rm -rf web/public/docs && mv packages/ninja-agents/docs web/public/docs"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

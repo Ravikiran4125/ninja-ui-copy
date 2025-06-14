@@ -24,7 +24,7 @@
     "demo": "tsx internal/orchestrationDemo.ts",
     "docs:generate": "typedoc",
     "docs:serve": "typedoc --watch",
-    "docs:json": "typedoc --json docs/api.json --includeReferencedTypes"
+    "docs:json": "typedoc --json docs/api.json"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.0.0",

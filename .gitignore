@@ -25,4 +25,4 @@ dist-ssr
 .env
 dist
 directories
-agents_docs
+web/public/docs
