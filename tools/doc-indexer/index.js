@@ -59,7 +59,7 @@ async function main() {
       logger.debug(`Processing file: ${file.path}`);
       
       let fileChunks = [];
-      
+
       if (file.path.endsWith('.md')) {
         fileChunks = await markdownProcessor.process(file);
       } else if (file.path.endsWith('.ts') || file.path.endsWith('.tsx')) {
