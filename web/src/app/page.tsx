@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { MessageSquare, Book, Code, Sparkles, ArrowRight, Github } from "lucide-react";
+import { MessageSquare, Book, Code, Sparkles, ArrowRight, Github, Users, Zap } from "lucide-react";
 
 export default function Home() {
   return (
@@ -57,6 +57,53 @@ export default function Home() {
               <Book size={20} />
               View Documentation
             </Link>
+          </div>
+
+          {/* Demo Links Section */}
+          <div className="mb-16">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
+              Explore Different Orchestration Patterns
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              <Link 
+                href="/chat"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+              >
+                <div className="p-3 bg-blue-100 dark:bg-blue-900 rounded-lg w-fit mb-4 group-hover:bg-blue-200 dark:group-hover:bg-blue-800 transition-colors">
+                  <MessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Single Shinobi</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Experience a single AI agent with multiple specialized skills working together to solve complex tasks.
+                </p>
+              </Link>
+
+              <Link 
+                href="/clan-demo"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+              >
+                <div className="p-3 bg-purple-100 dark:bg-purple-900 rounded-lg w-fit mb-4 group-hover:bg-purple-200 dark:group-hover:bg-purple-800 transition-colors">
+                  <Users className="w-6 h-6 text-purple-600 dark:text-purple-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Clan Collaboration</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  See multiple AI specialists collaborate simultaneously, each bringing their unique expertise to the analysis.
+                </p>
+              </Link>
+
+              <Link 
+                href="/dojo-demo"
+                className="group bg-white dark:bg-gray-800 p-6 rounded-xl shadow-sm border border-gray-200 dark:border-gray-700 hover:shadow-lg transition-all duration-200 transform hover:scale-105"
+              >
+                <div className="p-3 bg-orange-100 dark:bg-orange-900 rounded-lg w-fit mb-4 group-hover:bg-orange-200 dark:group-hover:bg-orange-800 transition-colors">
+                  <Zap className="w-6 h-6 text-orange-600 dark:text-orange-400" />
+                </div>
+                <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-3">Dojo Workflows</h3>
+                <p className="text-gray-600 dark:text-gray-300">
+                  Explore structured sequential workflows where agents execute in a defined order for comprehensive analysis.
+                </p>
+              </Link>
+            </div>
           </div>
 
           {/* Features Grid */}
@@ -140,6 +187,12 @@ const result = await researcher.execute(
               </Link>
               <Link href="/chat" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 Demo
+              </Link>
+              <Link href="/clan-demo" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Clan Demo
+              </Link>
+              <Link href="/dojo-demo" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
+                Dojo Demo
               </Link>
               <a href="#" className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white transition-colors">
                 <Github size={20} />

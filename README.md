@@ -1,38 +1,291 @@
-# OpenAI Teaching Package - AI Crew Orchestration System
+# Ninja Agents SDK - AI Crew Orchestration Framework
 
-A comprehensive TypeScript package demonstrating advanced AI crew orchestration using OpenAI API with specialized agents (Shinobi), workflows (Kata), and capabilities (Shuriken).
+A comprehensive TypeScript framework for building sophisticated AI crew orchestration systems. Create specialized agents that work together to solve complex problems through modular, composable workflows.
 
-## 🎯 Core Concepts
+## 🏗️ Architecture Overview
 
-### Architecture Overview
-- **Shinobi**: Persona-driven orchestrators that manage multiple specialized agents
-- **Kata**: Specialized AI agents focused on specific tasks and workflows  
-- **Shuriken**: Specific capabilities/functions that agents can invoke
-- **Orchestra**: High-level orchestration systems that coordinate multiple Shinobi for complex workflows
+The Ninja Agents SDK follows a hierarchical architecture inspired by martial arts concepts:
 
-### Key Features
-- ✅ Modular, reusable AI agent definitions
-- ✅ Comprehensive testing suite
-- ✅ Multiple orchestration patterns
-- ✅ Collaborative multi-agent workflows
-- ✅ Token usage tracking and cost estimation
-- ✅ Persistent logging with Supabase integration
-- ✅ Clean separation of concerns
+### 🥷 **Shinobi** = Agent
+Persona-driven orchestrators that manage multiple specialized agents (Kata) and coordinate complex workflows. Each Shinobi embodies a unique role with rich backstory and expertise.
+
+```typescript
+const travelExpert = new Shinobi(runtime, {
+  role: 'Expert Travel Assistant',
+  description: 'Knowledgeable travel expert with comprehensive planning abilities',
+  backstory: '15+ years in travel industry, helped thousands plan perfect trips...',
+  katas: [weatherAnalyst, costCalculator, destinationAdvisor]
+});
+```
+
+### 🥋 **Kata** = Task (Reasoning Step)
+Specialized AI agents focused on specific tasks and workflows. Each Kata encapsulates domain expertise and can use multiple tools (Shuriken) to accomplish its goals.
+
+```typescript
+const weatherAnalyst = new Kata(runtime, {
+  model: 'gpt-4o-mini',
+  title: 'Weather Analysis Specialist',
+  description: 'Analyze weather conditions and provide travel recommendations',
+  shurikens: [weatherShuriken, calculatorShuriken]
+});
+```
+
+### 🏹 **Shuriken** = Tool (Function or API)
+Atomic, reusable capabilities that can be invoked by agents. Each Shuriken represents a specific function, API call, or capability with validated parameters.
+
+```typescript
+const weatherShuriken = new Shuriken(
+  'get_weather',
+  'Get current weather information for a specific city',
+  z.object({
+    city: z.string(),
+    unit: z.enum(['celsius', 'fahrenheit']).optional()
+  }),
+  async (params) => {
+    // Implementation logic
+    return { temperature: 25, condition: 'Sunny' };
+  }
+);
+```
+
+### 🏯 **Dojo** = Workflow (Directed Graph of Steps)
+Workflow orchestration system with fluent API for creating complex agent workflows with conditional branching and parallel execution.
+
+```typescript
+const analysisWorkflow = new Dojo(runtime)
+  .start(dataCollector)
+  .then(primaryAnalyst)
+  .parallel([technicalReviewer, businessReviewer])
+  .if(needsDeepDive, deepAnalysisSpecialist)
+  .then(synthesizer);
+```
+
+### 👥 **Clan** = Agent Ensemble (Multi-Agent Strategy)
+Agent networks for coordinating multiple Shinobi with different execution strategies: sequential, parallel, competitive, collaborative, or conditional.
+
+```typescript
+const analysisTeam = new Clan(runtime, {
+  name: 'Market Analysis Team',
+  description: 'Comprehensive market analysis from multiple perspectives',
+  strategy: 'collaborative',
+  shinobi: [technicalAnalyst, businessAnalyst, userResearcher]
+});
+```
+
+## 🧠 Internal Reasoning System
+
+The SDK internally leverages a sophisticated reasoning system that is encapsulated and not exposed externally:
+
+- **ThoughtModules**: Advanced reasoning engines for different cognitive patterns
+- **PromptExecutor**: Intelligent prompt execution and optimization
+- **ThoughtGraph**: Reasoning flow management and decision trees
+- **Memory Systems**: Context storage, retrieval, and learning capabilities
+
+This internal architecture ensures that agents can perform complex reasoning while maintaining a clean, simple external API.
 
 ## 🚀 Quick Start
 
-### Prerequisites
-- Node.js 18+ 
-- OpenAI API key
-- (Optional) Supabase project for logging
-
 ### Installation
+
 ```bash
-npm install
+npm install ninja-agents zod openai
 ```
 
-### Environment Setup
-Copy `.env.example` to `.env` and configure:
+### Basic Setup
+
+```typescript
+import { Shinobi, Kata, Shuriken, KataRuntime, Logger, Memory } from 'ninja-agents';
+import { z } from 'zod';
+import OpenAI from 'openai';
+
+// Initialize core services
+const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const memory = new Memory({
+  supabaseUrl: process.env.SUPABASE_URL,
+  supabaseKey: process.env.SUPABASE_ANON_KEY,
+});
+const logger = new Logger('info', 'MyApp', memory);
+const runtime = new KataRuntime(openai, logger, memory);
+```
+
+## 📋 Usage Examples
+
+### 1. Simple Shinobi with Multiple Kata
+
+```typescript
+// Create specialized capabilities
+const calculatorShuriken = new Shuriken(
+  'calculate',
+  'Perform mathematical calculations',
+  z.object({
+    operation: z.enum(['add', 'subtract', 'multiply', 'divide']),
+    a: z.number(),
+    b: z.number()
+  }),
+  (params) => {
+    switch (params.operation) {
+      case 'add': return params.a + params.b;
+      case 'subtract': return params.a - params.b;
+      case 'multiply': return params.a * params.b;
+      case 'divide': return params.a / params.b;
+    }
+  }
+);
+
+// Create a math expert agent
+const mathExpert = new Shinobi(runtime, {
+  role: 'Mathematics Expert',
+  description: 'Expert mathematician and problem solver',
+  backstory: 'PhD in Mathematics with 20 years of teaching experience',
+  shurikens: [calculatorShuriken],
+  katas: [
+    {
+      model: 'gpt-4o-mini',
+      title: 'Problem Solver',
+      description: 'Solve mathematical problems step by step'
+    },
+    {
+      model: 'gpt-4o-mini',
+      title: 'Concept Explainer',
+      description: 'Explain mathematical concepts clearly'
+    }
+  ]
+});
+
+// Execute complex problem solving
+const result = await mathExpert.execute('What is 15% of 240, then multiply by 3?');
+```
+
+### 2. Using Kata with Scroll + Shuriken
+
+```typescript
+// Create a web search capability
+const webSearchShuriken = new Shuriken(
+  'web_search',
+  'Search the web for information',
+  z.object({
+    query: z.string(),
+    maxResults: z.number().optional()
+  }),
+  async (params) => {
+    // Web search implementation
+    return { results: [], totalResults: 0 };
+  }
+);
+
+// Create a research kata that uses the search capability
+const researchKata = new Kata(runtime, {
+  model: 'gpt-4o-mini',
+  title: 'Research Specialist',
+  description: 'Conduct comprehensive research using web search',
+  shurikens: [webSearchShuriken],
+  parameters: {
+    temperature: 0.6,
+    max_tokens: 1500
+  }
+});
+
+const research = await researchKata.execute('Research the latest AI developments');
+```
+
+### 3. Running a Clan (Multi-Agent Coordination)
+
+```typescript
+// Define multiple expert agents
+const technicalAnalyst = {
+  role: 'Technical Analyst',
+  description: 'Expert in technical analysis and system architecture',
+  backstory: 'Senior technical architect with 15+ years of experience',
+  katas: [
+    {
+      model: 'gpt-4o-mini',
+      title: 'Technical Evaluator',
+      description: 'Evaluate technical feasibility and architecture'
+    }
+  ]
+};
+
+const businessAnalyst = {
+  role: 'Business Analyst',
+  description: 'Strategic business analysis expert',
+  backstory: 'MBA with 12+ years in business strategy and market analysis',
+  katas: [
+    {
+      model: 'gpt-4o-mini',
+      title: 'Market Researcher',
+      description: 'Conduct market analysis and competitive research'
+    }
+  ]
+};
+
+// Create a collaborative clan
+const analysisTeam = new Clan(runtime, {
+  name: 'Multi-Perspective Analysis Team',
+  description: 'Collaborative team providing comprehensive analysis',
+  strategy: 'collaborative',
+  shinobi: [technicalAnalyst, businessAnalyst],
+  maxConcurrency: 2
+});
+
+// Execute collaborative analysis
+const teamResult = await analysisTeam.execute('Analyze the market opportunity for AI-powered customer service');
+```
+
+### 4. Running a Dojo (Sequential and Branching Logic)
+
+```typescript
+// Create a structured workflow
+const researchWorkflow = new Dojo(runtime, {
+  name: 'Comprehensive Research Pipeline',
+  description: 'Multi-stage research and analysis workflow',
+  errorHandling: 'continue'
+});
+
+// Build the workflow with fluent API
+const workflow = researchWorkflow
+  .start(dataCollector)
+  .then(primaryResearcher)
+  .parallel([
+    technicalAnalyst,
+    marketAnalyst,
+    competitorAnalyst
+  ])
+  .if(
+    (context) => context.complexity > 0.8,
+    deepAnalysisSpecialist
+  )
+  .then(synthesizer);
+
+// Execute the complete workflow
+const workflowResult = await workflow.execute('Comprehensive analysis of emerging AI technologies');
+```
+
+## 🎯 Key Features
+
+### Modular Architecture
+- **Composable Components**: Build complex workflows from simple, reusable parts
+- **Type Safety**: Full TypeScript support with comprehensive type definitions
+- **Clean Separation**: Clear boundaries between tools, tasks, agents, and workflows
+
+### Advanced Orchestration
+- **Multiple Strategies**: Sequential, parallel, competitive, collaborative execution
+- **Conditional Logic**: Dynamic workflow branching based on runtime conditions
+- **Error Handling**: Robust error handling and recovery mechanisms
+
+### Persona-Driven Agents
+- **Rich Backstories**: Agents with detailed personalities and expertise
+- **Context Awareness**: Agents understand their role within larger workflows
+- **Memory Integration**: Persistent context and learning capabilities
+
+### Production Ready
+- **Comprehensive Logging**: Detailed execution tracking and analytics
+- **Cost Monitoring**: Token usage tracking and cost estimation
+- **Scalable Design**: Built for production deployment and scaling
+
+## 🔧 Configuration
+
+### Environment Variables
+
 ```bash
 # Required
 OPENAI_API_KEY=your_openai_api_key_here
@@ -41,163 +294,64 @@ OPENAI_API_KEY=your_openai_api_key_here
 SUPABASE_URL=your_supabase_project_url
 SUPABASE_ANON_KEY=your_supabase_anon_key
 ENABLE_DATABASE_LOGGING=true
+ENABLE_FILE_LOGGING=false
 ```
 
-### Run Examples
-```bash
-# Run basic OpenAI examples
-npm run dev
-
-# Run orchestration demos
-npm run orchestration
-
-# Run test suite
-npm run test
-```
-
-## 🏗️ Project Structure
-
-```
-src/
-├── core/                    # Core framework components
-│   ├── kata.ts             # AI agent workflows
-│   ├── shinobi.ts          # Agent orchestrators
-│   ├── shuriken.ts         # AI capabilities/functions
-│   ├── kataRuntime.ts      # Dependency injection container
-│   ├── memory.ts           # Persistent storage and logging
-│   └── types.ts            # Type definitions
-├── definitions/             # Centralized component definitions
-│   ├── shurikens/          # Reusable AI capabilities
-│   ├── katas/              # Specialized agent workflows
-│   └── shinobi/            # Persona-driven orchestrators
-├── orchestrations/          # High-level orchestration systems
-│   ├── travelPlanningOrchestra.ts
-│   ├── researchOrchestra.ts
-│   ├── digitalConsultingOrchestra.ts
-│   └── collaborativeOrchestra.ts
-├── utils/                   # Utility functions and helpers
-│   ├── billingCalculator.ts
-│   ├── openaiUtils.ts
-│   ├── Logger.ts
-│   └── testRunner.ts
-└── __tests__/              # Comprehensive test suites
-```
-
-## 🎼 Orchestration Examples
-
-### 1. Travel Planning Orchestra
-Specialized travel assistance with weather analysis, cost calculation, and destination recommendations.
+### Runtime Configuration
 
 ```typescript
-const travelOrchestra = new TravelPlanningOrchestra(openai, logger, memory);
-await travelOrchestra.execute('Plan a 7-day trip to Japan in March for 2 people');
+const runtime = new KataRuntime(openai, logger, memory);
+
+// Configure memory
+const memory = new Memory({
+  supabaseUrl: process.env.SUPABASE_URL,
+  supabaseKey: process.env.SUPABASE_ANON_KEY,
+  enableDatabaseLogging: true,
+  enableFileLogging: false
+});
+
+// Configure logger
+const logger = new Logger('info', 'MyApp', memory);
 ```
 
-### 2. Research Orchestra  
-Comprehensive research and analysis with content creation and technical documentation.
+## 📊 Monitoring and Analytics
+
+The SDK provides comprehensive monitoring capabilities:
 
 ```typescript
-const researchOrchestra = new ResearchOrchestra(openai, logger, memory);
-await researchOrchestra.execute('Analyze AI trends and business applications');
-```
+// Get execution statistics
+const stats = await memory.getExecutionStats();
+console.log(`Total executions: ${stats.total_executions}`);
+console.log(`Total cost: $${stats.total_cost.toFixed(6)}`);
 
-### 3. Digital Consulting Orchestra
-Strategic digital consulting with research, technical documentation, and content creation.
+// Query specific logs
+const recentErrors = await memory.queryLogs({
+  level: 'error',
+  limit: 10
+});
 
-```typescript
-const digitalOrchestra = new DigitalConsultingOrchestra(openai, logger, memory);
-await digitalOrchestra.execute('Develop digital transformation strategy for retail company');
-```
-
-### 4. Collaborative Orchestra
-Multi-expert collaborative analysis combining multiple Shinobi perspectives.
-
-```typescript
-const collaborativeOrchestra = new CollaborativeOrchestra(openai, logger, memory);
-await collaborativeOrchestra.execute('Start a sustainable travel blog business');
+// Get agent performance metrics
+const agentStats = await shinobi.getTotalBillingInfo();
+console.log(`Agent cost: $${shinobi.getTotalEstimatedCost().toFixed(6)}`);
 ```
 
 ## 🧪 Testing
 
-The package includes comprehensive testing for all utility functions and core components:
-
 ```bash
 # Run all tests
-npm run test
+npm test
 
-# Watch mode for development
-npm run test:watch
+# Run specific test suites
+npm run test:shuriken
+npm run test:kata
+npm run test:shinobi
 ```
 
-Test coverage includes:
-- Billing calculator functionality
-- OpenAI utility functions
-- Shuriken creation and execution
-- Schema validation and conversion
+## 📚 Documentation
 
-## 🔧 Core Components
-
-### Shuriken (AI Capabilities)
-Reusable AI functions that can be shared across multiple agents:
-
-```typescript
-// Example: Weather capability
-export const weatherShuriken = new Shuriken(
-  'get_weather',
-  'Get current weather information for a specific city',
-  weatherSchema,
-  getWeatherImplementation
-);
-```
-
-### Kata (AI Agents)
-Specialized workflows focused on specific tasks:
-
-```typescript
-// Example: Weather analysis specialist
-export const weatherAnalysisKata: KataConfig = {
-  model: 'gpt-4o-mini',
-  title: 'Weather Analysis Specialist',
-  description: 'Analyze weather conditions and provide travel recommendations',
-  requiresHumanInput: false,
-  parameters: { temperature: 0.7, max_tokens: 1000 }
-};
-```
-
-### Shinobi (Orchestrators)
-Persona-driven coordinators that manage multiple Kata:
-
-```typescript
-// Example: Travel expert with multiple specializations
-export const travelExpertShinobi: ShinobiConfig = {
-  role: 'Expert Travel Assistant',
-  description: 'Knowledgeable travel expert with 15+ years experience',
-  backstory: 'Extensive knowledge of destinations worldwide...',
-  katas: [weatherAnalysisKata, costCalculatorKata, destinationRecommenderKata]
-};
-```
-
-## 📊 Features
-
-### Token Tracking & Cost Estimation
-- Real-time token usage monitoring
-- Accurate cost estimation for different models
-- Aggregated billing across multi-agent workflows
-
-### Persistent Logging
-- Supabase integration for structured logging
-- Execution statistics and performance metrics
-- Searchable logs with context and metadata
-
-### Collaborative Workflows
-- Multi-Shinobi orchestration
-- Cross-perspective synthesis
-- Conflict resolution and integration
-
-### Clean Architecture
-- Dependency injection with KataRuntime
-- Modular, reusable components
-- Clear separation of concerns
+- **[API Reference](./packages/ninja-agents/docs/)** - Complete API documentation
+- **[Examples](./examples/)** - Comprehensive usage examples
+- **[Migration Guide](./MIGRATION.md)** - Upgrading from previous versions
 
 ## 🤝 Contributing
 
@@ -209,10 +363,16 @@ export const travelExpertShinobi: ShinobiConfig = {
 
 ## 📝 License
 
-MIT License - see LICENSE file for details.
+MIT License - see [LICENSE](./LICENSE) file for details.
 
-## 🔗 Related
+## 🔗 Related Projects
 
-- [OpenAI API Documentation](https://platform.openai.com/docs)
-- [Supabase Documentation](https://supabase.com/docs)
-- [Zod Schema Validation](https://zod.dev/)
+- [OpenAI API](https://platform.openai.com/docs) - AI model provider
+- [Supabase](https://supabase.com/docs) - Database and authentication
+- [Zod](https://zod.dev/) - Schema validation
+
+---
+
+**Built with ❤️ for the AI development community**
+
+*Transform your ideas into intelligent, collaborative AI workflows with the Ninja Agents SDK.*

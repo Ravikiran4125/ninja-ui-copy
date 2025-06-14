@@ -5,7 +5,7 @@ import { useState } from "react";
 import { ChatbotContainer } from "@/components/chatbot";
 import type { ChatMessageData, FileAttachment } from "@/components/chatbot/types";
 
-export default function ChatPage() {
+export default function DojoDemoPage() {
   const [messages, setMessages] = useState<ChatMessageData[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -28,7 +28,7 @@ export default function ChatPage() {
     setLoading(true);
 
     try {
-      const res = await fetch("/api/orchestrate", {
+      const res = await fetch("/api/dojo-orchestrate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: [{ role: "user", content }] }),
@@ -40,7 +40,7 @@ export default function ChatPage() {
         const assistantMessage: ChatMessageData = {
           id: generateMessageId(),
           role: "assistant",
-          content: data.response || "I apologize, but I couldn't generate a response.",
+          content: data.response || "I apologize, but I couldn't generate a response from the dojo workflow.",
           timestamp: new Date(),
           status: 'sent'
         };
@@ -56,7 +56,6 @@ export default function ChatPage() {
   };
 
   const handleVoiceMessage = async (audioBlob: Blob) => {
-    // For now, just show a placeholder message
     const voiceMessage: ChatMessageData = {
       id: generateMessageId(),
       role: "user",
@@ -66,8 +65,6 @@ export default function ChatPage() {
     };
     
     setMessages(prev => [...prev, voiceMessage]);
-    
-    // You would typically send the audio blob to a speech-to-text service here
     console.log('Voice message received:', audioBlob);
   };
 
@@ -93,20 +90,20 @@ export default function ChatPage() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-blue-900">
+    <div className="min-h-screen bg-gradient-to-br from-orange-50 via-white to-red-50 dark:from-gray-900 dark:via-gray-800 dark:to-orange-900">
       {/* Header */}
       <header className="border-b border-gray-200 dark:border-gray-700 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-600 rounded-lg">
+              <div className="p-2 bg-orange-600 rounded-lg">
                 <svg className="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Single Shinobi Demo</h1>
-                <p className="text-sm text-gray-500 dark:text-gray-400">AI Research Director with Multiple Skills</p>
+                <h1 className="text-xl font-bold text-gray-900 dark:text-white">Dojo Demo</h1>
+                <p className="text-sm text-gray-500 dark:text-gray-400">Sequential Workflow Orchestration</p>
               </div>
             </div>
             <nav className="flex items-center gap-6">
@@ -123,24 +120,26 @@ export default function ChatPage() {
         {/* Info Section */}
         <div className="mb-8 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 p-6">
           <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-            🥷 Single Shinobi Demo
+            🏯 Dojo Workflow Demo
           </h2>
           <p className="text-gray-600 dark:text-gray-300 mb-4">
-            Experience a single AI agent (Shinobi) that orchestrates multiple specialized skills (Kata) to provide comprehensive analysis. 
-            This Research Director has expertise in:
+            Experience structured workflow orchestration where AI agents execute in a defined sequence. 
+            This demo showcases a two-step workflow:
           </p>
-          <div className="grid md:grid-cols-3 gap-4">
+          <div className="grid md:grid-cols-2 gap-4">
             <div className="bg-blue-50 dark:bg-blue-900/20 p-4 rounded-lg">
-              <h3 className="font-semibold text-blue-900 dark:text-blue-100">🔬 Research Analysis</h3>
-              <p className="text-sm text-blue-700 dark:text-blue-300">Comprehensive research and data analysis</p>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="bg-blue-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">1</span>
+                <h3 className="font-semibold text-blue-900 dark:text-blue-100">Initial Research</h3>
+              </div>
+              <p className="text-sm text-blue-700 dark:text-blue-300">Research Director conducts comprehensive analysis</p>
             </div>
             <div className="bg-green-50 dark:bg-green-900/20 p-4 rounded-lg">
-              <h3 className="font-semibold text-green-900 dark:text-green-100">✍️ Content Creation</h3>
-              <p className="text-sm text-green-700 dark:text-green-300">High-quality content and documentation</p>
-            </div>
-            <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg">
-              <h3 className="font-semibold text-purple-900 dark:text-purple-100">📝 Technical Writing</h3>
-              <p className="text-sm text-purple-700 dark:text-purple-300">Clear technical documentation and guides</p>
+              <div className="flex items-center gap-2 mb-2">
+                <span className="bg-green-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-sm font-bold">2</span>
+                <h3 className="font-semibold text-green-900 dark:text-green-100">Analysis Synthesis</h3>
+              </div>
+              <p className="text-sm text-green-700 dark:text-green-300">Synthesizer creates actionable insights and recommendations</p>
             </div>
           </div>
         </div>
@@ -153,8 +152,8 @@ export default function ChatPage() {
             onVoiceMessage={handleVoiceMessage}
             isLoading={loading}
             error={error}
-            chatTitle="AI Research Director"
-            chatSubtitle="Powered by Ninja Agents SDK"
+            chatTitle="Dojo Workflow Engine"
+            chatSubtitle="Sequential Analysis Pipeline"
             onClearChat={handleClearChat}
             onMessageReaction={handleMessageReaction}
             settings={{
