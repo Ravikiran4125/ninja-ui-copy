@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 import 'dotenv/config';
+import { fileURLToPath } from 'url';
+import path from 'path';
+
+
 import { fileCollector } from './src/utils/fileCollector.js';
 import { markdownProcessor } from './src/processors/markdownProcessor.js';
 import { typeScriptProcessor } from './src/processors/typeScriptProcessor.js';
@@ -8,6 +12,12 @@ import { openaiEmbedder } from './src/embedders/openaiEmbedder.js';
 import { supabaseClient } from './src/storage/supabaseClient.js';
 import { logger } from './src/utils/logger.js';
 import { validateConfig } from './src/utils/configValidator.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+console.log('📄 Script directory:', __dirname);
+
 
 // Validate configuration
 validateConfig();
