@@ -62,10 +62,13 @@ async function main() {
       
       if (file.path.endsWith('.md')) {
         fileChunks = await markdownProcessor.process(file);
+        logger.info('Markdown Files' , file);
       } else if (file.path.endsWith('.ts') || file.path.endsWith('.tsx')) {
         fileChunks = await typeScriptProcessor.process(file);
+        logger.info('Processing files and generating chunks...');
       } else if (file.path.includes('typedoc.json')) {
         fileChunks = await typedocProcessor.process(file);
+        logger.info('Processing files and generating chunks...');
       } else {
         logger.debug(`Skipping unsupported file type: ${file.path}`);
         continue;
