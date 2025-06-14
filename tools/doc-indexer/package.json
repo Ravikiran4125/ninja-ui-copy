@@ -1,0 +1,33 @@
+{
+  "name": "ninja-doc-indexer",
+  "version": "1.0.0",
+  "description": "Document indexing pipeline for Ninja Agents SDK",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "node index.js",
+    "dry-run": "cross-env DRY_RUN=true node index.js",
+    "test": "node --test"
+  },
+  "keywords": [
+    "documentation",
+    "indexing",
+    "embeddings",
+    "openai",
+    "supabase",
+    "ninja-agents"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.39.3",
+    "chalk": "^5.3.0",
+    "dotenv": "^16.3.1",
+    "glob": "^10.3.10",
+    "openai": "^4.24.1",
+    "typescript": "^5.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3"
+  }
+}

@@ -1,0 +1,148 @@
+# Ninja Agents SDK - Bolt Ignore Configuration
+# Maintains proper isolation of the thought system layer within the ninja layer
+
+# =============================================================================
+# 🧠 THOUGHT SYSTEM ISOLATION (Restricted Access)
+# =============================================================================
+# The thought system layer is restricted to ninja-level access only
+# These files should not be directly modified through the UI layer
+
+# Core Thought System Components
+packages/ninja-agents/src/thought/core/ThoughtModule.ts
+packages/ninja-agents/src/thought/core/ThoughtRuntime.ts
+packages/ninja-agents/src/thought/core/ThoughtGraph.ts
+packages/ninja-agents/src/thought/core/ThoughtMemory.ts
+packages/ninja-agents/src/thought/core/ThoughtTrace.ts
+
+# Thought System Prompting Engine
+packages/ninja-agents/src/thought/prompts/PromptTemplate.ts
+packages/ninja-agents/src/thought/prompts/PromptStrategy.ts
+packages/ninja-agents/src/thought/prompts/PromptExecutor.ts
+
+# Thought System Types and Interfaces
+packages/ninja-agents/src/thought/types.ts
+packages/ninja-agents/src/thought/index.ts
+
+# =============================================================================
+# 📦 BUILD AND DISTRIBUTION ARTIFACTS
+# =============================================================================
+# Generated files that should not be tracked in context
+
+# TypeScript Build Output
+packages/ninja-agents/dist/
+packages/ninja-agents/tsconfig.tsbuildinfo
+
+# TypeDoc Generated Documentation
+packages/ninja-agents/docs/
+web/public/docs/
+
+# Node Modules and Dependencies
+node_modules/
+packages/*/node_modules/
+web/node_modules/
+
+# =============================================================================
+# 🧪 DEVELOPMENT AND TESTING FILES
+# =============================================================================
+# Internal development files that don't need context tracking
+
+# Legacy Internal Examples (Removed)
+packages/ninja-agents/internal/
+packages/ninja-agents/tests/
+
+# Development Logs and Temporary Files
+*.log
+*.tmp
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# =============================================================================
+# 🎨 UI DEVELOPMENT ARTIFACTS
+# =============================================================================
+# Next.js and React build artifacts
+
+# Next.js Build Output
+web/.next/
+web/out/
+
+# Static Assets (Large Files)
+web/public/images/
+web/public/videos/
+web/public/audio/
+
+# =============================================================================
+# 📊 DOCUMENTATION AND LEGACY FILES
+# =============================================================================
+# Documentation that doesn't need active context
+
+# Legacy Documentation
+legacy-docs/
+packages/ninja-agents/API.md
+packages/ninja-agents/EXPORTS_VISUALIZATION.md
+
+# Generated Type Definitions (Auto-generated)
+packages/ninja-agents/src/**/*.d.ts.map
+web/src/**/*.d.ts
+
+# =============================================================================
+# 🔧 CONFIGURATION FILES (Stable)
+# =============================================================================
+# Configuration files that rarely change
+
+# TypeScript Configuration
+tsconfig.json
+packages/ninja-agents/tsconfig.json
+web/tsconfig.json
+
+# Package Lock Files
+package-lock.json
+packages/*/package-lock.json
+web/package-lock.json
+
+# =============================================================================
+# 🚀 DEPLOYMENT AND CI/CD
+# =============================================================================
+# Deployment artifacts and CI configuration
+
+# Vercel Deployment
+.vercel/
+
+# GitHub Actions
+.github/
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# =============================================================================
+# 📱 MOBILE AND PLATFORM SPECIFIC
+# =============================================================================
+# Platform-specific files
+
+# iOS
+ios/
+*.xcodeproj/
+*.xcworkspace/
+
+# Android
+android/
+*.gradle
+
+# =============================================================================
+# 🎯 SCOPE MANAGEMENT NOTES
+# =============================================================================
+# This configuration ensures:
+# 1. Thought System remains isolated and secure
+# 2. Build artifacts don't pollute context
+# 3. Development files stay out of production context
+# 4. Large assets don't impact performance
+# 5. Generated files don't create noise
+# 
+# The goal is to maintain focus on:
+# - Core Ninja Layer components (Shinobi, Kata, Shuriken, Clan, Dojo)
+# - Scroll Layer provider implementations
+# - Web UI components and user experience
+# - Integration between layers through approved channels
