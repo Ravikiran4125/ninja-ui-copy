@@ -34,8 +34,8 @@ const config = {
   cacheEnabled: process.env.CACHE_ENABLED === 'true',
   logLevel: process.env.LOG_LEVEL || 'info',
   paths: {
-    legacyDocs: '../legacy-docs',
-    packageDocs: '../packages/ninja-agents'
+    legacyDocs: path.resolve(__dirname, '../../legacy-docs'),
+    packageDocs: path.resolve(__dirname, '../../packages/ninja-agents')
   }
 };
 
