@@ -56,7 +56,7 @@ async function main() {
     const chunks = [];
 
     for (const file of files) {
-      logger.debug(`Processing file: ${file.path}`);
+      logger.info(`Processing file: ${file.path}`);
       
       let fileChunks = [];
 
