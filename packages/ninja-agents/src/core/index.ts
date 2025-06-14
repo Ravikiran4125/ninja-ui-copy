@@ -1,3 +1,5 @@
+
+export { Logger } from '../index.js';
 export { Shuriken } from './shuriken.js';
 export { Kata, type KataConfig } from './kata.js'; // Combined Kata and KataConfig
 export { KataRuntime } from './kataRuntime.js';
@@ -7,6 +9,7 @@ export { Memory } from './memory.js';
 // If it's in shinobi.js, the Shinobi export line above would be adjusted.
 export type { ShinobiExecutionResult } from './shinobi.js'; // ShinobiConfig moved to be with Shinobi class export
 export type { MemoryConfig, LogEntry } from './memory.js';
+
 export type { 
   OpenAITool, 
   OpenAIToolFunction, 
@@ -17,14 +20,13 @@ export type {
   OpenAIParameters,
   ExecutionResult,
   ShinobiPersonaContext // Already here, but the import in web/api might be case-sensitive or slightly different
-} from './types.js';
+} from './types';
 
 // Re-export utility functions for external use
-export { generateText, streamText, generateObject, streamObject } from '../utils/openaiUtils.js';
+export { generateText, streamText, generateObject, streamObject } from '../utils/openaiUtils';
 export type { 
   GenerateTextOptions, 
   StreamTextOptions, 
   GenerateObjectOptions, 
   StreamObjectOptions 
-} from '../utils/openaiUtils.js';
-
+} from '../utils/openaiUtils';

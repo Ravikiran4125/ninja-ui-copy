@@ -378,7 +378,27 @@ export default function APIDocsPage() {
     } else {
       apiContent = `# API Documentation
 
-The API documentation is being generated. Please check back soon.
+The API documentation is being generated automatically using TypeDoc. 
+
+## TypeDoc Integration
+
+This documentation is generated from the TypeScript source code in the \`ninja-agents\` package using TypeDoc. The documentation includes:
+
+- **Comprehensive API Reference**: All classes, interfaces, types, and functions
+- **Code Examples**: Real-world usage examples embedded in the source code
+- **Type Information**: Complete TypeScript type definitions
+- **Cross-References**: Links between related components
+
+## Generating Documentation
+
+To generate the latest API documentation:
+
+\`\`\`bash
+cd packages/ninja-agents
+npm run docs:generate
+\`\`\`
+
+This will create a complete HTML documentation site in the \`docs/\` directory.
 
 ## Quick Reference
 
@@ -402,6 +422,27 @@ const runtime = new KataRuntime(openai, logger, memory);
 const agent = new Shinobi(runtime, config);
 const result = await agent.execute(userQuery);
 \`\`\`
+
+## TypeDoc Features
+
+The generated documentation includes:
+
+- **Grouped Organization**: Components are organized by functional groups
+- **Search Functionality**: Full-text search across all documentation
+- **Type Safety**: Complete TypeScript type information
+- **Examples**: Code examples from TSDoc comments
+- **Cross-Links**: Navigation between related components
+- **Version Information**: Tracks changes across versions
+
+## Accessing Generated Docs
+
+Once generated, the TypeDoc documentation can be:
+
+1. **Served Locally**: Use \`npm run docs:serve\` for live development
+2. **Deployed Statically**: Host the \`docs/\` folder on any static site host
+3. **Integrated**: Parse the JSON output for custom documentation UIs
+
+The documentation is automatically kept in sync with the source code through TSDoc comments.
 `;
     }
   } catch (error) {
@@ -417,7 +458,7 @@ const result = await agent.execute(userQuery);
       frontmatter: {
         title: 'API Reference',
         category: 'Reference',
-        tags: ['api', 'reference', 'typescript']
+        tags: ['api', 'reference', 'typescript', 'typedoc']
       }
     }
   ]);
@@ -442,6 +483,34 @@ const result = await agent.execute(userQuery);
   return (
     <DocsLayout>
       <div className="max-w-7xl mx-auto space-y-8">
+        {/* TypeDoc Integration Notice */}
+        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-6">
+          <div className="flex items-start gap-3">
+            <div className="p-2 bg-blue-600 rounded-lg">
+              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <div>
+              <h3 className="text-lg font-semibold text-blue-900 dark:text-blue-100 mb-2">
+                TypeDoc Integration Active
+              </h3>
+              <p className="text-blue-800 dark:text-blue-200 mb-3">
+                This API documentation is automatically generated from TypeScript source code using TypeDoc. 
+                The documentation includes comprehensive type information, examples, and cross-references.
+              </p>
+              <div className="flex flex-wrap gap-2">
+                <code className="px-2 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded text-sm">
+                  npm run docs:generate
+                </code>
+                <code className="px-2 py-1 bg-blue-100 dark:bg-blue-800 text-blue-800 dark:text-blue-200 rounded text-sm">
+                  npm run docs:serve
+                </code>
+              </div>
+            </div>
+          </div>
+        </div>
+
         {/* Search */}
         <SearchableContent
           content={searchableContent}

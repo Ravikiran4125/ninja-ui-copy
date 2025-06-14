@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
-import { Logger } from '../utils/Logger.js';
-import { Memory } from './memory.js';
+import { Logger } from '../utils/Logger';
+import { Memory } from './memory';
 
 /**
  * Dependency injection container for the AI crew orchestration system.
