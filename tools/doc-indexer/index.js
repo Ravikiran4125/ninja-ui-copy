@@ -12,6 +12,10 @@ import { validateConfig } from './src/utils/configValidator.js';
 // Validate configuration
 validateConfig();
 
+// Initialize clients with environment variables
+openaiEmbedder.init(process.env.OPENAI_API_KEY);
+supabaseClient.init(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
+
 // Configuration
 const config = {
   dryRun: process.env.DRY_RUN === 'true',

@@ -3,13 +3,28 @@ import { logger } from '../utils/logger.js';
 
 class SupabaseClient {
   constructor() {
-    this.supabase = createClient(
-      process.env.SUPABASE_URL,
-      process.env.SUPABASE_KEY
-    );
+    this.supabase = null;
+  }
+  
+  init(url, key) {
+    if (!url || !key) {
+      throw new Error('Supabase URL and key are required');
+    }
+    
+    try {
+      this.supabase = createClient(url, key);
+      logger.debug('Supabase client initialized successfully');
+    } catch (error) {
+      logger.error('Failed to initialize Supabase client:', error);
+      throw error;
+    }
   }
   
   async storeChunks(chunks) {
+    if (!this.supabase) {
+      throw new Error('Supabase client not initialized. Call init() first.');
+    }
+    
     if (chunks.length === 0) {
       logger.debug('No chunks to store');
       return;
@@ -43,6 +58,10 @@ class SupabaseClient {
   }
   
   async createMatchDocumentsFunction() {
+    if (!this.supabase) {
+      throw new Error('Supabase client not initialized. Call init() first.');
+    }
+    
     try {
       // Create a stored procedure for matching documents
       const { error } = await this.supabase.rpc('create_match_documents_function');
@@ -60,6 +79,10 @@ class SupabaseClient {
   }
   
   async setupDatabase() {
+    if (!this.supabase) {
+      throw new Error('Supabase client not initialized. Call init() first.');
+    }
+    
     try {
       // Enable pgvector extension
       const { error: extensionError } = await this.supabase.rpc('enable_pgvector_extension');

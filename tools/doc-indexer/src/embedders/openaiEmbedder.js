@@ -6,13 +6,25 @@ import { chunkValidator } from '../utils/chunkValidator.js';
 
 class OpenAIEmbedder {
   constructor() {
-    this.openai = new OpenAI({
-      apiKey: process.env.OPENAI_API_KEY
-    });
+    this.openai = null;
     this.cacheEnabled = process.env.CACHE_ENABLED === 'true';
     this.cacheDir = path.join(process.cwd(), '.cache');
     this.cacheFile = path.join(this.cacheDir, 'embeddings-cache.json');
     this.cache = new Map();
+  }
+  
+  init(apiKey) {
+    if (!apiKey) {
+      throw new Error('OpenAI API key is required');
+    }
+    
+    try {
+      this.openai = new OpenAI({ apiKey });
+      logger.debug('OpenAI client initialized successfully');
+    } catch (error) {
+      logger.error('Failed to initialize OpenAI client:', error);
+      throw error;
+    }
   }
   
   async initCache() {
@@ -65,6 +77,10 @@ class OpenAIEmbedder {
   }
   
   async embedChunks(chunks, dryRun = false) {
+    if (!this.openai && !dryRun) {
+      throw new Error('OpenAI client not initialized. Call init() first.');
+    }
+    
     // Initialize cache
     await this.initCache();
     

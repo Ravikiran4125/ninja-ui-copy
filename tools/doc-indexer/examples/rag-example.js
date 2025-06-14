@@ -3,13 +3,21 @@ import { createClient } from '@supabase/supabase-js';
 import OpenAI from 'openai';
 
 // Initialize clients
-const supabase = createClient(
-  process.env.SUPABASE_URL,
-  process.env.SUPABASE_KEY
-);
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_KEY;
+const openaiApiKey = process.env.OPENAI_API_KEY;
+
+// Validate required environment variables
+if (!supabaseUrl || !supabaseKey || !openaiApiKey) {
+  console.error('Error: Missing required environment variables');
+  console.error('Please ensure SUPABASE_URL, SUPABASE_KEY, and OPENAI_API_KEY are set');
+  process.exit(1);
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
+  apiKey: openaiApiKey
 });
 
 async function retrieveRelevantDocuments(query, options = {}) {
